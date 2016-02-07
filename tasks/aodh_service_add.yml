@@ -21,6 +21,7 @@
     service_name: "{{ service_name }}"
     service_type: "{{ service_type }}"
     description: "{{ service_description }}"
+    insecure: "{{ keystone_service_adminuri_insecure }}"
   register: add_service
   until: add_service|success
   retries: 5
@@ -38,6 +39,7 @@
     tenant_name: "{{ service_tenant_name }}"
     role_name: "{{ aodh_role_name }}"
     password: "{{ aodh_service_password }}"
+    insecure: "{{ keystone_service_adminuri_insecure }}"
   register: add_service
   when: not aodh_service_in_ldap | bool
   until: add_service|success
@@ -55,6 +57,7 @@
     user_name: "{{ aodh_service_user_name }}"
     tenant_name: "{{ aodh_service_project_name }}"
     role_name: "{{ aodh_role_name }}"
+    insecure: "{{ keystone_service_adminuri_insecure }}"
   register: add_admin_role
   when: not aodh_service_in_ldap | bool
   until: add_admin_role|success
@@ -75,6 +78,7 @@
     region_name: "{{ service_region }}"
     service_name: "{{ service_name }}"
     service_type: "{{ service_type }}"
+    insecure: "{{ keystone_service_adminuri_insecure }}"
     endpoint_list:
       - url: "{{ service_publicurl }}"
         interface: "public"
