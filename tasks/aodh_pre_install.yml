@@ -76,13 +76,11 @@
 
 - name: Create aodh log dir
   file:
-    path: "{{ item.path }}"
+    path: "/var/log/aodh"
     state: directory
-    owner: "{{ item.owner|default(aodh_system_user_name) }}"
-    group: "{{ item.group|default(aodh_system_group_name) }}"
-    mode: "{{ item.mode|default('0755') }}"
-  with_items:
-    - { path: "/var/log/aodh" }
+    owner: "{{ aodh_system_user_name }}"
+    group: "{{ aodh_system_group_name }}"
+    mode: "0755"
   when: log_dir.rc != 0
   tags:
     - aodh-dirs
