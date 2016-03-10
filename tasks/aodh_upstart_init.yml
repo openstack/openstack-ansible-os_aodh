@@ -22,7 +22,7 @@
     service_home: "{{ aodh_system_user_home }}"
   when: inventory_hostname in groups['aodh_alarm_notifier']
   tags:
-    - aodh-alarm-notifier-init
+    - aodh-notifier-init
 
 - include: aodh_upstart_common_init.yml
   vars:
@@ -33,7 +33,7 @@
     service_home: "{{ aodh_system_user_home }}"
   when: inventory_hostname in groups['aodh_alarm_evaluator']
   tags:
-    - aodh-alarm-evaluator-init
+    - aodh-evaluator-init
 
 - include: aodh_upstart_common_init.yml
   vars:

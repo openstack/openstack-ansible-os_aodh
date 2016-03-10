@@ -65,8 +65,8 @@ aodh_rabbitmq_vhost: /aodh
 #Aodh services info
 aodh_role_name: admin
 
-aodh_alarm_notifier_program_name: aodh-alarm-notifier
-aodh_alarm_evaluator_program_name: aodh-alarm-evaluator
+aodh_alarm_notifier_program_name: aodh-notifier
+aodh_alarm_evaluator_program_name: aodh-evaluator
 aodh_listener_program_name: aodh-listener
 aodh_api_program_name: aodh-api
 
@@ -117,8 +117,8 @@ aodh_pip_packages:
 ## Service Names
 aodh_service_names:
   - "aodh-api"
-  - "aodh-alarm-notifier"
-  - "aodh-alarm-evaluator"
+  - "aodh-notifier"
+  - "aodh-evaluator"
   - "aodh-listener"
 
 ## Tunable overrides
