@@ -8,8 +8,8 @@ Role to install aodh as the alarm functionality of Telemetry
 This role will install the following:
     * aodh-api
     * aodh-listener
-    * aodh-alarm-evaluator
-    * aodh-alarm-notifier
+    * aodh-evaluator
+    * aodh-notifier
 
 .. code-block:: yaml
 
