@@ -139,6 +139,51 @@
   hosts: service_all
   user: root
   gather_facts: true
+  pre_tasks:
+    - name: Install MongoDB packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items: packages_mongodb
+    - name: Configure the MongoDB bind address
+      lineinfile:
+        dest: /etc/mongodb.conf
+        regexp: "^(#)?bind_ip"
+        line: "bind_ip = 10.100.100.2"
+      register: mongodb_bind
+    - name: Enable the MongoDB smallfiles option
+      lineinfile:
+        dest: /etc/mongodb.conf
+        regexp: "^(#)?smallfiles"
+        line: "smallfiles = true"
+      register: mongodb_smallfiles
+    - name: Restart mongodb
+      service:
+        name: mongodb
+        state: restarted
+      when:
+        - mongodb_bind | changed or mongodb_smallfiles | changed
+      register: mongodb_restart
+    - name: Wait for mongodb to come back online after the restart
+      wait_for:
+        host: "10.100.100.2"
+        port: 27017
+        delay: 10
+        timeout: 120
+      when:
+        - mongodb_restart is defined
+        - mongodb_restart | changed
+    - name: Test mongodb connectivity
+      command: "mongo --host 10.100.100.2 --eval ' '"
+      changed_when: False
+    - name: Add aodh database user
+      mongodb_user:
+        login_host: "10.100.100.2"
+        database: aodh
+        name: aodh
+        password: secrete
+        roles: 'readWrite,dbAdmin'
+        state: present
   roles:
     - role: "rabbitmq_server"
       rabbitmq_cookie_token: secrete
@@ -152,6 +197,11 @@
       galera_wsrep_provider_options:
         - { option: "gcache.size", value: "32M" }
       galera_server_id: "{{ inventory_hostname | string_2_int }}"
+  vars:
+    packages_mongodb:
+      - mongodb-clients
+      - mongodb-server
+      - python-pymongo
 
 - name: Playbook for deploying keystone
   hosts: keystone_all
@@ -246,11 +296,17 @@
       when: inventory_hostname == groups['aodh_all'][0]
   roles:
     - role: "{{ rolename | basename }}"
+  tasks:
+    # needed by the functional test playbook below
+    - name: Install httplib2 so we can use the uri module
+      pip:
+        name: httplib2
   vars:
     external_lb_vip_address: 10.100.100.3
     internal_lb_vip_address: 10.100.100.3
     galera_root_password: "secrete"
-    aodh_container_db_password: "SuperSecrete"
+    aodh_container_db_password: "secrete"
+    aodh_db_ip: 10.100.100.2
     galera_client_drop_config_file: false
     aodh_rabbitmq_password: "secrete"
     aodh_rabbitmq_userid: aodh
@@ -276,3 +332,20 @@
     openrc_os_domain_name: "Default"
     memcached_servers: 127.0.0.1
     memcached_encryption_key: "secrete"
+
+- name: Playbook for functional testing aodh
+  hosts: aodh_all
+  user: root
+  gather_facts: false
+  tasks:
+    - name: Check the aodh-api
+      uri:
+        url: "http://localhost:8042"
+        status_code: 401
+      register: result
+      until:
+        - result is defined
+        - result.status is defined
+        - result.status == 401
+      retries: 5
+      delay: 10
