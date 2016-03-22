@@ -31,11 +31,13 @@ galaxy_info:
     - development
     - openstack
 dependencies:
+  - role: apt_package_pinning
+    when:
+      - ansible_pkg_mgr == 'apt'
   - role: pip_lock_down
     when:
       - not aodh_developer_mode | bool
   - role: pip_install
     when:
       - aodh_developer_mode | bool
-  - apt_package_pinning
   - openstack_openrc

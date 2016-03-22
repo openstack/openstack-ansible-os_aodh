@@ -17,9 +17,6 @@
 debug: False
 verbose: False
 
-## APT Cache options
-cache_timeout: 600
-
 aodh_git_repo: https://git.openstack.org/openstack/aodh
 aodh_git_install_branch: master
 aodh_requirements_git_repo: https://git.openstack.org/openstack/requirements
@@ -92,10 +89,6 @@ aodh_service_adminuri: "{{ aodh_service_proto }}://{{ internal_lb_vip_address }}
 aodh_service_adminurl: "{{ aodh_service_adminuri }}"
 
 aodh_service_in_ldap: false
-
-# Common apt packages
-aodh_apt_packages:
-  - rpcbind
 
 # aodh packages that must be installed before anything else
 aodh_requires_pip_packages:
