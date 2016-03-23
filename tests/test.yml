@@ -258,8 +258,8 @@
     keystone_galera_database: keystone
     keystone_venv_tag: "testing"
     keystone_developer_mode: true
-    keystone_git_install_branch: a55128044f763f5cfe2fdc57c738eaca97636448
-    keystone_requirements_git_install_branch: 332278d456e06870150835564342570ec9d5f5a0
+    keystone_git_install_branch: stable/mitaka
+    keystone_requirements_git_install_branch: f8cf7eba898a1424549c730d6692ec4e9573c0ed # HEAD of "master" as of 23.03.2016
     keystone_auth_admin_token: "SuperSecreteTestToken"
     keystone_auth_admin_password: "SuperSecretePassword"
     keystone_service_password: "secrete"
@@ -325,8 +325,8 @@
     keystone_service_adminurl: "{{ keystone_service_adminuri }}/v3"
     aodh_venv_tag: "testing"
     aodh_developer_mode: true
-    aodh_git_install_branch: 239e1f629b26557ceadb92de3d62edcd87489b9d
-    aodh_requirements_git_install_branch: 332278d456e06870150835564342570ec9d5f5a0
+    aodh_git_install_branch: stable/mitaka
+    aodh_requirements_git_install_branch: f8cf7eba898a1424549c730d6692ec4e9573c0ed # HEAD of "master" as of 23.03.2016
     aodh_service_password: "secrete"
     openrc_os_password: "{{ keystone_auth_admin_password }}"
     openrc_os_domain_name: "Default"
