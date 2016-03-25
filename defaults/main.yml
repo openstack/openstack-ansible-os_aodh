@@ -21,9 +21,9 @@ verbose: False
 cache_timeout: 600
 
 aodh_git_repo: https://git.openstack.org/openstack/aodh
-aodh_git_install_branch: master
+aodh_git_install_branch: stable/mitaka
 aodh_requirements_git_repo: https://git.openstack.org/openstack/requirements
-aodh_requirements_git_install_branch: master
+aodh_requirements_git_install_branch: stable/mitaka
 aodh_developer_mode: false
 aodh_developer_constraints:
   - "git+{{ aodh_git_repo }}@{{ aodh_git_install_branch }}#egg=aodh"

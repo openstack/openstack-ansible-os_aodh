@@ -259,7 +259,7 @@
     keystone_venv_tag: "testing"
     keystone_developer_mode: true
     keystone_git_install_branch: stable/mitaka
-    keystone_requirements_git_install_branch: f8cf7eba898a1424549c730d6692ec4e9573c0ed # HEAD of "master" as of 23.03.2016
+    keystone_requirements_git_install_branch: stable/mitaka
     keystone_auth_admin_token: "SuperSecreteTestToken"
     keystone_auth_admin_password: "SuperSecretePassword"
     keystone_service_password: "secrete"
@@ -326,7 +326,7 @@
     aodh_venv_tag: "testing"
     aodh_developer_mode: true
     aodh_git_install_branch: stable/mitaka
-    aodh_requirements_git_install_branch: f8cf7eba898a1424549c730d6692ec4e9573c0ed # HEAD of "master" as of 23.03.2016
+    aodh_requirements_git_install_branch: stable/mitaka
     aodh_service_password: "secrete"
     openrc_os_password: "{{ keystone_auth_admin_password }}"
     openrc_os_domain_name: "Default"
