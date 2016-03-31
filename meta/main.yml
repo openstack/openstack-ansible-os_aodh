@@ -31,8 +31,11 @@ galaxy_info:
     - development
     - openstack
 dependencies:
-  - apt_package_pinning
-  - openstack_openrc
   - role: pip_lock_down
     when:
       - not aodh_developer_mode | bool
+  - role: pip_install
+    when:
+      - aodh_developer_mode | bool
+  - apt_package_pinning
+  - openstack_openrc
