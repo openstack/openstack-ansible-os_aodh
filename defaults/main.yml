@@ -58,7 +58,6 @@ aodh_connection_string: "{{ aodh_db_type }}://{{ aodh_database_user }}:{{ aodh_c
 aodh_rabbitmq_userid: aodh
 aodh_rabbitmq_vhost: /aodh
 
-
 #Aodh services info
 aodh_role_name: admin
 
@@ -113,6 +112,12 @@ aodh_service_names:
   - "aodh-notifier"
   - "aodh-evaluator"
   - "aodh-listener"
+
+aodh_required_secrets:
+  - memcached_encryption_key
+  - aodh_container_db_password
+  - aodh_rabbitmq_password
+  - aodh_service_password
 
 ## Tunable overrides
 aodh_policy_overrides: {}
