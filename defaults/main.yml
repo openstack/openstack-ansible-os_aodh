@@ -15,7 +15,6 @@
 
 ## Verbosity Options
 debug: False
-verbose: False
 
 aodh_git_repo: https://git.openstack.org/openstack/aodh
 aodh_git_install_branch: master
