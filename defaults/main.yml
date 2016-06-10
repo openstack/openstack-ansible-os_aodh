@@ -48,10 +48,9 @@ aodh_system_user_home: "/var/lib/{{ aodh_system_user_name }}"
 ## DB info
 aodh_database_name: aodh
 aodh_database_user: aodh
-aodh_db_type: mongodb
-aodh_db_ip: localhost
-aodh_db_port: 27017
-aodh_connection_string: "{{ aodh_db_type }}://{{ aodh_database_user }}:{{ aodh_container_db_password }}@{{ aodh_db_ip }}:{{ aodh_db_port }}/{{ aodh_database_name }}"
+aodh_db_type: "mysql+pymysql"
+aodh_db_address: localhost
+aodh_connection_string: "{{ aodh_db_type }}://{{ aodh_database_user }}:{{ aodh_container_db_password }}@{{ aodh_db_address }}/{{ aodh_database_name }}?charset=utf8"
 
 ## RabbitMQ info
 aodh_rabbitmq_userid: aodh
@@ -97,13 +96,13 @@ aodh_requires_pip_packages:
 
 # Common pip packages
 aodh_pip_packages:
-  - aodh
+  - "aodh[mysql]"
   - python-ceilometerclient
   - ceilometermiddleware
   - python-memcached
   - pycrypto
   - warlock
-  - pymongo
+  - PyMySQL
 
 ## Service Names
 aodh_service_names:

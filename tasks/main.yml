@@ -37,6 +37,10 @@
 - include: aodh_post_install.yml
 - include: aodh_upstart_init.yml
 
+- include: aodh_db_setup.yml
+  when: >
+    inventory_hostname == groups['aodh_all'][0]
+
 - include: aodh_service_setup.yml
   when: >
     inventory_hostname == groups['aodh_api'][0]

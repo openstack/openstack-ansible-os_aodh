@@ -1,5 +1,5 @@
 ---
-# Copyright 2015, Rackspace US, Inc.
+# Copyright 2016, Rackspace US, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,27 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-galaxy_info:
-  author: rcbops
-  description: Installation and setup of aodh
-  company: Rackspace
-  license: Apache2
-  min_ansible_version: 1.9.2
-  platforms:
-    - name: Ubuntu
-      versions:
-        - trusty
-  categories:
-    - cloud
-    - python
-    - ceilometer
-    - aodh
-    - development
-    - openstack
-dependencies:
-  - pip_install
-  - role: apt_package_pinning
-    when:
-      - ansible_pkg_mgr == 'apt'
-  - galera_client
-  - openstack_openrc
+- name: Perform a Aodh DB sync
+  command: "{{ aodh_bin }}/aodh-dbsync"
+  become: yes
+  become_user: "{{ aodh_system_user_name }}"
+  tags:
+    - aodh-db-sync
+    - aodh-setup
+    - aodh-command-bin
