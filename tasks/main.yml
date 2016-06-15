@@ -17,7 +17,7 @@
   fail:
     msg: "Please set the {{ item }} variable prior to applying this role."
   when: (item is undefined) or (item is none)
-  with_items: aodh_required_secrets
+  with_items: "{{ aodh_required_secrets }}"
   tags:
     - always
 

@@ -72,7 +72,7 @@
   until: install_packages|success
   retries: 5
   delay: 2
-  with_items: aodh_requires_pip_packages
+  with_items: "{{ aodh_requires_pip_packages }}"
   tags:
     - aodh-install
     - aodh-pip-packages
@@ -189,7 +189,7 @@
   until: install_packages|success
   retries: 5
   delay: 2
-  with_items: aodh_pip_packages
+  with_items: "{{ aodh_pip_packages }}"
   when:
     - aodh_venv_enabled | bool
     - aodh_get_venv | failed or aodh_developer_mode | bool
@@ -207,7 +207,7 @@
   until: install_packages|success
   retries: 5
   delay: 2
-  with_items: aodh_pip_packages
+  with_items: "{{ aodh_pip_packages }}"
   when:
     - not aodh_developer_mode | bool
     - not aodh_venv_enabled | bool
