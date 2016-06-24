@@ -125,11 +125,6 @@
       galera_server_id: "{{ inventory_hostname | string_2_int }}"
     - role: "rabbitmq_server"
       rabbitmq_cookie_token: secrete
-  vars:
-    packages_mongodb:
-      - mongodb-clients
-      - mongodb-server
-      - python-pymongo
 
 - name: Playbook for deploying keystone
   hosts: keystone_all
