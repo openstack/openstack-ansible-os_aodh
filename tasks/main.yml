@@ -51,11 +51,11 @@
 - include: aodh_install.yml
   tags:
     - aodh-install
-    - aodh-config
 
 - include: aodh_post_install.yml
   tags:
     - aodh-install
+    - aodh-config
 
 - include: aodh_init.yml
   tags:

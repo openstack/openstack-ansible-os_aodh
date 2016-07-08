@@ -36,6 +36,3 @@
       config_overrides: "{{ aodh_policy_overrides }}"
       config_type: "json"
   notify: Restart aodh services
-  tags:
-    - aodh-config
-    - aodh-post-install

@@ -15,13 +15,9 @@
 
 - include: aodh_init_upstart.yml
   when: pid1_name == "init"
-  tags:
-    - aodh-init
 
 - include: aodh_init_systemd.yml
   when: pid1_name == "systemd"
-  tags:
-    - aodh-init
 
 - name: Load service
   service:

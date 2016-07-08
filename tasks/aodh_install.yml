@@ -16,8 +16,6 @@
 - include: aodh_install_apt.yml
   when:
     - ansible_pkg_mgr == 'apt'
-  tags:
-    - install-apt
 
 - name: Create developer mode constraint file
   copy:
@@ -28,9 +26,6 @@
       {% endfor %}
   when:
     - aodh_developer_mode | bool
-  tags:
-    - aodh-install
-    - aodh-pip-packages
 
 - name: Clone requirements git repository
   git:
@@ -41,27 +36,18 @@
     version: "{{ aodh_requirements_git_install_branch }}"
   when:
     - aodh_developer_mode | bool
-  tags:
-    - aodh-install
-    - aodh-pip-packages
 
 - name: Add constraints to pip_install_options fact for developer mode
   set_fact:
     pip_install_options_fact: "{{ pip_install_options|default('') }} --constraint /opt/developer-pip-constraints.txt --constraint /opt/requirements/upper-constraints.txt"
   when:
     - aodh_developer_mode | bool
-  tags:
-    - aodh-install
-    - aodh-pip-packages
 
 - name: Set pip_install_options_fact when not in developer mode
   set_fact:
     pip_install_options_fact: "{{ pip_install_options|default('') }}"
   when:
     - not aodh_developer_mode | bool
-  tags:
-    - aodh-install
-    - aodh-pip-packages
 
 - name: Install requires pip packages
   pip:
@@ -73,9 +59,6 @@
   retries: 5
   delay: 2
   with_items: "{{ aodh_requires_pip_packages }}"
-  tags:
-    - aodh-install
-    - aodh-pip-packages
 
 - name: Get local venv checksum
   stat:
@@ -84,9 +67,6 @@
   when:
     - not aodh_developer_mode | bool
   register: local_venv_stat
-  tags:
-    - aodh-install
-    - aodh-pip-packages
 
 - name: Get remote venv checksum
   uri:
@@ -95,9 +75,6 @@
   when:
     - not aodh_developer_mode | bool
   register: remote_venv_checksum
-  tags:
-    - aodh-install
-    - aodh-pip-packages
 
 # TODO: When project moves to ansible 2 we can pass this a sha256sum which will:
 #       a) allow us to remove force: yes
@@ -115,16 +92,10 @@
     - not aodh_developer_mode | bool
     - (local_venv_stat.stat.exists == False or
         {{ local_venv_stat.stat.checksum is defined and local_venv_stat.stat.checksum != remote_venv_checksum.content | trim }})
-  tags:
-    - aodh-install
-    - aodh-pip-packages
 
 - name: Set aodh get_venv fact
   set_fact:
     aodh_get_venv: "{{ get_venv }}"
-  tags:
-    - aodh-install
-    - aodh-pip-packages
 
 - name: Remove existing venv
   file:
@@ -132,9 +103,6 @@
     state: absent
   when:
     - aodh_get_venv | changed
-  tags:
-    - aodh-install
-    - aodh-pip-packages
 
 - name: Create aodh venv dir
   file:
@@ -144,9 +112,6 @@
   when:
     - not aodh_developer_mode | bool
     - aodh_get_venv | changed
-  tags:
-    - aodh-install
-    - aodh-pip-packages
 
 - name: Unarchive pre-built venv
   unarchive:
@@ -157,9 +122,6 @@
     - not aodh_developer_mode | bool
     - aodh_get_venv | changed or aodh_venv_dir | changed
   notify: Restart aodh services
-  tags:
-    - aodh-install
-    - aodh-pip-packages
 
 - name: Install pip packages
   pip:
@@ -176,9 +138,6 @@
   when:
     - aodh_get_venv | failed or aodh_developer_mode | bool
   notify: Restart aodh services
-  tags:
-    - aodh-install
-    - aodh-pip-packages
 
 - name: Update virtualenv path
   command: >
@@ -186,6 +145,3 @@
   when:
     - not aodh_developer_mode | bool
     - aodh_get_venv | success
-  tags:
-    - aodh-install
-    - aodh-pip-packages

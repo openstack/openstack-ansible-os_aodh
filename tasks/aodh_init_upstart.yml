@@ -23,9 +23,6 @@
   register: upstart_init
   notify:
     - Restart aodh services
-  tags:
-    - upstart-init
-    - aodh-init
 
 - name: Reload init scripts
   shell: |
@@ -33,9 +30,6 @@
   register: upstart_init
   notify:
     - Restart aodh services
-  tags:
-    - upstart-init
-    - aodh-init
 
 - name: Load service
   service:
@@ -43,6 +37,3 @@
     enabled: "yes"
   notify:
     - Restart aodh services
-  tags:
-    - upstart-init
-    - aodh-init

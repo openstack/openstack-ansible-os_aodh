@@ -25,5 +25,3 @@
     service_internalurl: "{{ aodh_service_internalurl }}"
     service_publicurl: "{{ aodh_service_publicurl }}"
     service_adminurl: "{{ aodh_service_adminurl }}"
-  tags:
-    - aodh-add-service

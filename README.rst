@@ -83,3 +83,13 @@ Example Playbook
         keystone_service_internalurl: "{{ keystone_service_internaluri }}/v3"
         keystone_service_adminuri: "http://5.6.7.8:35357"
         keystone_service_adminurl: "{{ keystone_service_adminuri }}/v3"
+
+Tags
+====
+
+This role supports two tags: ``aodh-install`` and ``aodh-config``
+
+The ``aodh-install`` tag can be used to install and upgrade.
+
+The ``aodh-config`` tag can be used to maintain configuration of the
+aodh components.

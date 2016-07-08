@@ -21,8 +21,6 @@
     system_group: "{{ aodh_system_group_name }}"
     service_home: "{{ aodh_system_user_home }}"
   when: inventory_hostname in groups['aodh_alarm_notifier']
-  tags:
-    - aodh-notifier-init
 
 - include: aodh_init_common.yml
   vars:
@@ -32,8 +30,6 @@
     system_group: "{{ aodh_system_group_name }}"
     service_home: "{{ aodh_system_user_home }}"
   when: inventory_hostname in groups['aodh_alarm_evaluator']
-  tags:
-    - aodh-evaluator-init
 
 - include: aodh_init_common.yml
   vars:
@@ -43,8 +39,6 @@
     system_group: "{{ aodh_system_group_name }}"
     service_home: "{{ aodh_system_user_home }}"
   when: inventory_hostname in groups['aodh_api']
-  tags:
-    - aodh-api-init
 
 - include: aodh_init_common.yml
   vars:
@@ -54,5 +48,3 @@
     system_group: "{{ aodh_system_group_name }}"
     service_home: "{{ aodh_system_user_home }}"
   when: inventory_hostname in groups['aodh_listener']
-  tags:
-    - aodh-listener-init

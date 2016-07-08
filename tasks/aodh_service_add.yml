@@ -28,9 +28,6 @@
   until: add_service|success
   retries: 5
   delay: 2
-  tags:
-    - aodh-setup
-    - aodh-service-add
 
 - name: Ensure aodh user
   keystone:
@@ -49,9 +46,6 @@
   until: add_service|success
   retries: 5
   delay: 10
-  tags:
-    - aodh-setup
-    - aodh-service-add
 
 - name: Ensure aodh user to admin role
   keystone:
@@ -69,11 +63,6 @@
   until: add_admin_role|success
   retries: 5
   delay: 10
-  tags:
-    - aodh-api-setup
-    - aodh-service-add
-    - aodh-setup
-
 
 # Create an endpoint
 - name: Ensure aodh endpoint
@@ -98,6 +87,3 @@
   until: add_service|success
   retries: 5
   delay: 10
-  tags:
-    - aodh-setup
-    - aodh-service-add
