@@ -185,6 +185,7 @@
     virtualenv-tools --update-path=auto {{ aodh_bin | dirname }}
   when:
     - not aodh_developer_mode | bool
+    - aodh_get_venv | success
   tags:
     - aodh-install
     - aodh-pip-packages
