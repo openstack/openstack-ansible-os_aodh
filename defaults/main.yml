@@ -47,6 +47,9 @@ aodh_connection_string: "{{ aodh_db_type }}://{{ aodh_database_user }}:{{ aodh_c
 ## RabbitMQ info
 aodh_rabbitmq_userid: aodh
 aodh_rabbitmq_vhost: /aodh
+aodh_rabbitmq_servers: 127.0.0.1
+aodh_rabbitmq_port: 5672
+aodh_rabbitmq_use_ssl: False
 
 ## Apache setup
 aodh_apache_log_level: info

@@ -259,9 +259,9 @@
     aodh_rabbitmq_password: "secrete"
     aodh_rabbitmq_userid: aodh
     aodh_rabbitmq_vhost: /aodh
-    rabbitmq_servers: 10.100.100.2
-    rabbitmq_use_ssl: true
-    rabbitmq_port: 5671
+    aodh_rabbitmq_servers: 10.100.100.2
+    aodh_rabbitmq_use_ssl: true
+    aodh_rabbitmq_port: 5671
     keystone_admin_user_name: admin
     keystone_admin_tenant_name: admin
     keystone_auth_admin_password: "SuperSecretePassword"
