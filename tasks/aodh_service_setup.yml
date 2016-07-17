@@ -13,15 +13,77 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- include: aodh_service_add.yml
-  vars:
-    service_user_name: "{{ aodh_service_user_name }}"
-    service_tenant_name: "{{ aodh_service_tenant_name }}"
+- name: Ensure aodh service
+  keystone:
+    command: "ensure_service"
+    endpoint: "{{ keystone_service_adminurl }}"
+    login_user: "{{ keystone_admin_user_name }}"
+    login_password: "{{ keystone_auth_admin_password }}"
+    login_project_name: "{{ keystone_admin_tenant_name }}"
     service_name: "{{ aodh_service_name }}"
     service_type: "{{ aodh_service_type }}"
-    service_region: "{{aodh_service_region }}"
-    service_description: "{{ aodh_service_description }}"
-    service_password: "{{ aodh_service_password }}"
-    service_internalurl: "{{ aodh_service_internalurl }}"
-    service_publicurl: "{{ aodh_service_publicurl }}"
-    service_adminurl: "{{ aodh_service_adminurl }}"
+    description: "{{ aodh_service_description }}"
+    insecure: "{{ keystone_service_adminuri_insecure }}"
+  register: add_service
+  until: add_service|success
+  retries: 5
+  delay: 2
+
+- name: Ensure aodh user
+  keystone:
+    command: "ensure_user"
+    endpoint: "{{ keystone_service_adminurl }}"
+    login_user: "{{ keystone_admin_user_name }}"
+    login_password: "{{ keystone_auth_admin_password }}"
+    login_project_name: "{{ keystone_admin_tenant_name }}"
+    user_name: "{{ aodh_service_user_name }}"
+    tenant_name: "{{ aodh_service_tenant_name }}"
+    role_name: "{{ aodh_role_name }}"
+    password: "{{ aodh_service_password }}"
+    insecure: "{{ keystone_service_adminuri_insecure }}"
+  register: add_service
+  when: not aodh_service_in_ldap | bool
+  until: add_service|success
+  retries: 5
+  delay: 10
+
+- name: Ensure aodh user to admin role
+  keystone:
+    command: "ensure_user_role"
+    endpoint: "{{ keystone_service_adminurl }}"
+    login_user: "{{ keystone_admin_user_name }}"
+    login_password: "{{ keystone_auth_admin_password }}"
+    login_project_name: "{{ keystone_admin_tenant_name }}"
+    user_name: "{{ aodh_service_user_name }}"
+    tenant_name: "{{ aodh_service_project_name }}"
+    role_name: "{{ aodh_role_name }}"
+    insecure: "{{ keystone_service_adminuri_insecure }}"
+  register: add_admin_role
+  when: not aodh_service_in_ldap | bool
+  until: add_admin_role|success
+  retries: 5
+  delay: 10
+
+# Create an endpoint
+- name: Ensure aodh endpoint
+  keystone:
+    command: "ensure_endpoint"
+    endpoint: "{{ keystone_service_adminurl }}"
+    login_user: "{{ keystone_admin_user_name }}"
+    login_password: "{{ keystone_auth_admin_password }}"
+    login_project_name: "{{ keystone_admin_tenant_name }}"
+    region_name: "{{ aodh_service_region }}"
+    service_name: "{{ aodh_service_name }}"
+    service_type: "{{ aodh_service_type }}"
+    insecure: "{{ keystone_service_adminuri_insecure }}"
+    endpoint_list:
+      - url: "{{ aodh_service_publicurl }}"
+        interface: "public"
+      - url: "{{ aodh_service_adminurl }}"
+        interface: "admin"
+      - url: "{{ aodh_service_internalurl }}"
+        interface: "internal"
+  register: add_service
+  until: add_service|success
+  retries: 5
+  delay: 10
