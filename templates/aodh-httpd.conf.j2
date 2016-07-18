@@ -1,0 +1,16 @@
+# {{ ansible_managed }}
+
+<VirtualHost *:{{ aodh_service_port }}>
+    WSGIDaemonProcess aodh-api lang='en_US.UTF-8' locale='en_US.UTF-8' user={{ aodh_system_user_name }} group={{ aodh_system_group_name }} processes={{ aodh_wsgi_processes }} threads={{ aodh_wsgi_threads }} display-name=%{GROUP}
+    WSGIProcessGroup aodh-api
+    WSGIScriptAlias / /var/www/cgi-bin/aodh/aodh-api
+    WSGIApplicationGroup  %{GLOBAL}
+
+    <IfVersion >= 2.4>
+      ErrorLogFormat "%{cu}t %M"
+    </IfVersion>
+
+    LogLevel  {{  aodh_apache_log_level }}
+    ErrorLog  /var/log/aodh/aodh-apache-error.log
+    CustomLog /var/log/aodh/aodh-access.log combined
+</VirtualHost>

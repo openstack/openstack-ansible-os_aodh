@@ -48,6 +48,13 @@ aodh_connection_string: "{{ aodh_db_type }}://{{ aodh_database_user }}:{{ aodh_c
 aodh_rabbitmq_userid: aodh
 aodh_rabbitmq_vhost: /aodh
 
+## Apache setup
+aodh_apache_log_level: info
+aodh_apache_servertokens: "Prod"
+aodh_apache_serversignature: "Off"
+aodh_wsgi_threads: 10
+aodh_wsgi_processes: "{{ ansible_processor_vcpus | default (1) * 2 }}"
+
 #Aodh services info
 aodh_role_name: admin
 

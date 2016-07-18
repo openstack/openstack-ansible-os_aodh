@@ -67,6 +67,11 @@
   tags:
     - aodh-install
 
+- include: aodh_apache.yml
+  tags:
+    - aodh-install
+    - aodh-config
+
 - include: aodh_service_setup.yml
   when: >
     inventory_hostname == groups['aodh_api'][0]

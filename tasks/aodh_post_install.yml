@@ -35,4 +35,16 @@
       dest: "/etc/aodh/policy.json"
       config_overrides: "{{ aodh_policy_overrides }}"
       config_type: "json"
-  notify: Restart aodh services
+  notify:
+    - Restart aodh services
+    - Restart Apache
+
+- name: Drop aodh API WSGI Configs
+  template:
+    src: aodh-api-wsgi.py.j2
+    dest: /var/www/cgi-bin/aodh/aodh-api
+    owner: "{{ aodh_system_user_name }}"
+    group: "{{ aodh_system_group_name }}"
+    mode: "0755"
+  notify:
+    - Restart Apache
