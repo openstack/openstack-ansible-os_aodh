@@ -2,7 +2,6 @@
 
 [DEFAULT]
 auth_strategy = keystone
-rpc_backend = rabbit
 debug = {{ debug }}
 transport_url = rabbit://{% for host in aodh_rabbitmq_servers.split(',') %}{{ aodh_rabbitmq_userid }}:{{ aodh_rabbitmq_password }}@{{ host }}:{{ aodh_rabbitmq_port }}/{{ aodh_rabbitmq_vhost }}?rabbit_use_ssl={{ aodh_rabbitmq_use_ssl }}{% if not loop.last %},{% endif %}{% endfor %}
 
@@ -50,5 +49,5 @@ os_auth_url = {{ keystone_service_internalurl }}
 os_username = {{ aodh_service_user_name }}
 os_tenant_name = {{ aodh_service_tenant_name }}
 os_password = {{ aodh_service_password }}
-os_region_name = {{ aodh_service_region }}
-os_endpoint_type = {{ aodh_service_endpoint_type }}
+region_name = {{ aodh_service_region }}
+interface = {{ aodh_service_endpoint_type }}
