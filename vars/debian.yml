@@ -19,3 +19,6 @@ cache_timeout: 600
 # Common apt packages
 aodh_apt_packages:
   - rpcbind
+  - apache2
+  - apache2-utils
+  - libapache2-mod-wsgi
