@@ -271,6 +271,7 @@
     keystone_service_internalurl: "{{ keystone_service_internaluri }}/v3"
     keystone_service_adminuri: "http://{{ internal_lb_vip_address }}:35357"
     keystone_service_adminurl: "{{ keystone_service_adminuri }}/v3"
+    keystone_service_region: RegionOne
     aodh_venv_tag: "testing"
     aodh_developer_mode: true
     aodh_git_install_branch: master
