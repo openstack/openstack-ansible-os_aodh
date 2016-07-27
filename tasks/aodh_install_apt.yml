@@ -35,3 +35,14 @@
   retries: 5
   delay: 2
   with_items: "{{ aodh_apt_packages }}"
+
+- name: Install apt packages for testing
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  register: install_test_packages
+  until: install_test_packages|success
+  retries: 5
+  delay: 2
+  with_items: "{{ aodh_apt_test_packages }}"
+  when: install_test_packages|bool

@@ -19,7 +19,19 @@ rabbitmq_all
 galera_all
 
 [keystone_all]
-openstack1
+infra1
 
 [aodh_all]
+openstack1
+
+[aodh_alarm_notifier]
+openstack1
+
+[aodh_alarm_evaluator]
+openstack1
+
+[aodh_api]
+openstack1
+
+[aodh_listener]
 openstack1

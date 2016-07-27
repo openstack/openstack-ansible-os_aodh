@@ -22,3 +22,6 @@ aodh_apt_packages:
   - apache2
   - apache2-utils
   - libapache2-mod-wsgi
+
+aodh_apt_test_packages:
+  - git

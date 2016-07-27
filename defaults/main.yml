@@ -119,6 +119,8 @@ aodh_required_secrets:
   - aodh_rabbitmq_password
   - aodh_service_password
 
+install_test_packages: False
+
 ## Tunable overrides
 aodh_policy_overrides: {}
 aodh_aodh_conf_overrides: {}
