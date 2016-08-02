@@ -3,15 +3,9 @@
 [DEFAULT]
 auth_strategy = keystone
 debug = {{ debug }}
-transport_url = rabbit://{% for host in aodh_rabbitmq_servers.split(',') %}{{ aodh_rabbitmq_userid }}:{{ aodh_rabbitmq_password }}@{{ host }}:{{ aodh_rabbitmq_port }}/{{ aodh_rabbitmq_vhost }}?rabbit_use_ssl={{ aodh_rabbitmq_use_ssl }}{% if not loop.last %},{% endif %}{% endfor %}
+transport_url = rabbit://{% for host in aodh_rabbitmq_servers.split(',') %}{{ aodh_rabbitmq_userid }}:{{ aodh_rabbitmq_password }}@{{ host }}:{{ aodh_rabbitmq_port }}{% if not loop.last %},{% else %}/{{ aodh_rabbitmq_vhost }}{% endif %}{% endfor %}
 
 [oslo_messaging_rabbit]
-rpc_backend = rabbit
-rabbit_port = {{ aodh_rabbitmq_port }}
-rabbit_userid = {{ aodh_rabbitmq_userid }}
-rabbit_password = {{ aodh_rabbitmq_password }}
-rabbit_virtual_host = {{ aodh_rabbitmq_vhost }}
-rabbit_hosts = {{ aodh_rabbitmq_servers }}
 rabbit_use_ssl = {{ aodh_rabbitmq_use_ssl }}
 
 [api]
