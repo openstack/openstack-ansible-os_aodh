@@ -16,6 +16,10 @@
 ## Verbosity Options
 debug: False
 
+# Set the package install state for distribution packages
+# Options are 'present' and 'latest'
+aodh_package_state: "latest"
+
 aodh_git_repo: https://git.openstack.org/openstack/aodh
 aodh_git_install_branch: master
 aodh_requirements_git_repo: https://git.openstack.org/openstack/requirements
