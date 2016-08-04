@@ -1,6 +1,8 @@
 #{{ ansible_managed}}
 
 [DEFAULT]
+# Disable stderr logging
+use_stderr = False
 auth_strategy = keystone
 debug = {{ debug }}
 transport_url = rabbit://{% for host in aodh_rabbitmq_servers.split(',') %}{{ aodh_rabbitmq_userid }}:{{ aodh_rabbitmq_password }}@{{ host }}:{{ aodh_rabbitmq_port }}{% if not loop.last %},{% else %}/{{ aodh_rabbitmq_vhost }}{% endif %}{% endfor %}
