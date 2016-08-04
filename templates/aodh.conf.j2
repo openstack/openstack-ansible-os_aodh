@@ -1,6 +1,8 @@
 #{{ ansible_managed}}
 
 [DEFAULT]
+# Disable stderr logging
+use_stderr = False
 auth_strategy = keystone
 rpc_backend = rabbit
 verbose = {{ verbose }}
