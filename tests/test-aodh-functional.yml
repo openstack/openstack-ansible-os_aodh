@@ -32,6 +32,15 @@
         - result.status == 401
       retries: 5
       delay: 10
+  vars_files:
+    - playbooks/test-vars.yml
+    - test-vars.yml
+
+- name: Playbook for Tempest testing aodh
+  hosts: utility_all
+  user: root
+  gather_facts: false
+  tasks:
     - name: Run tempest
       shell: |
         . {{ tempest_bin }}/activate
@@ -39,4 +48,5 @@
       environment:
         RUN_TEMPEST_OPTS: "--serial"
   vars_files:
+    - playbooks/test-vars.yml
     - test-vars.yml

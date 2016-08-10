@@ -62,4 +62,5 @@
   roles:
     - role: "{{ rolename | basename }}"
   vars_files:
+    - playbooks/test-vars.yml
     - test-vars.yml

@@ -13,40 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-internal_lb_vip_address: 10.100.100.2
-external_lb_vip_address: 10.100.100.2
-
-galera_client_drop_config_file: false
-galera_root_password: "secrete"
-galera_root_user: "root"
-
-keystone_admin_tenant_name: admin
-keystone_admin_user_name: admin
-keystone_auth_admin_password: "SuperSecretePassword"
-keystone_container_mysql_password: "SuperSecrete"
-keystone_developer_mode: true
-keystone_galera_address: 10.100.100.2
-keystone_galera_database: keystone
-keystone_git_install_branch: master
-keystone_rabbitmq_password: "secrete"
-keystone_rabbitmq_port: 5672
-keystone_rabbitmq_servers: 10.100.100.2
-keystone_rabbitmq_use_ssl: False
-keystone_rabbitmq_userid: keystone
-keystone_rabbitmq_vhost: /keystone
-keystone_requirements_git_install_branch: master
-keystone_service_adminuri: "http://{{ internal_lb_vip_address }}:35357"
-keystone_service_adminuri_insecure: false
-keystone_service_adminurl: "{{ keystone_service_adminuri }}/v3"
-keystone_service_internaluri: "http://{{ internal_lb_vip_address }}:5000"
-keystone_service_internaluri_insecure: false
-keystone_service_internalurl: "{{ keystone_service_internaluri }}/v3"
-keystone_service_password: "secrete"
-keystone_service_region: "RegionOne"
-keystone_venv_tag: "testing"
-
 aodh_container_db_password: "secrete"
-aodh_db_address: 10.100.100.2
+aodh_db_address: "{{ hostvars[groups['galera_all'][0]]['ansible_ssh_host'] }}"
 aodh_database_name: aodh
 aodh_rabbitmq_password: "secrete"
 aodh_rabbitmq_userid: aodh
@@ -56,39 +24,11 @@ aodh_developer_mode: true
 aodh_git_install_branch: master
 aodh_requirements_git_install_branch: master
 aodh_service_password: "secrete"
-aodh_service_publicuri: "{{ aodh_service_proto }}://10.100.100.3:{{ aodh_service_port }}"
-aodh_service_internaluri: "{{ aodh_service_proto }}://10.100.100.3:{{ aodh_service_port }}"
-aodh_service_adminuri: "{{ aodh_service_proto }}://10.100.100.3:{{ aodh_service_port }}"
+aodh_service_publicuri: "{{ aodh_service_proto }}://{{ hostvars[groups['aodh_all'][0]]['ansible_ssh_host'] }}:{{ aodh_service_port }}"
+aodh_service_internaluri: "{{ aodh_service_proto }}://{{ hostvars[groups['aodh_all'][0]]['ansible_ssh_host'] }}:{{ aodh_service_port }}"
+aodh_service_adminuri: "{{ aodh_service_proto }}://{{ hostvars[groups['aodh_all'][0]]['ansible_ssh_host'] }}:{{ aodh_service_port }}"
 
-rabbitmq_servers: 10.100.100.2
-rabbitmq_use_ssl: true
-rabbitmq_port: 5671
-
-memcached_servers: 127.0.0.1
-memcached_encryption_key: "secrete"
-
-openrc_os_auth_url: "http://127.0.0.1:5000/v3"
-openrc_os_domain_name: "Default"
-openrc_os_password: "{{ keystone_auth_admin_password }}"
-
-tempest_developer_mode: True
-tempest_git_install_branch: master
-tempest_venv_tag: "{{ tempest_git_install_branch }}"
-# tempest_bin is the same as the default in os_tempest role, but we set
-# it again here so we can refer to it in test-aodh-functional.yml
 tempest_bin: "/opt/tempest_{{ tempest_venv_tag }}/bin"
-tempest_log_dir: "/var/log/"
-tempest_main_group: aodh_all
-tempest_service_available_aodh: True
-tempest_service_available_ceilometer: False
-tempest_service_available_cinder: False
-tempest_service_available_glance: False
-tempest_service_available_heat: False
-tempest_service_available_horizon: False
-tempest_service_available_neutron: False
-tempest_service_available_nova: False
-tempest_service_available_swift: False
-
 tempest_plugins:
   - name: tempest-aodh
     repo: https://git.openstack.org/openstack/aodh
