@@ -19,7 +19,7 @@ FUNCTIONAL_TEST=${FUNCTIONAL_TEST:-true}
 
 # prep the host
 if [ "$(which apt-get)" ]; then
-  apt-get install -y build-essential python2.7 python-dev git-core libssl-dev libffi-dev
+  apt-get install -y build-essential python2.7 python-dev git-core libssl-dev libffi-dev libxml2-dev libxslt1-dev
 fi
 
 # get pip, if necessary
