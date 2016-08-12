@@ -15,6 +15,6 @@
 # and the disk images are rebuilt and redeployed.
 curl
 
-# Requirements for Paramiko 2.0
+# Requirements for Cryptography
 libssl-dev
 libffi-dev

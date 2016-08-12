@@ -22,6 +22,10 @@ aodh_apt_packages:
   - apache2
   - apache2-utils
   - libapache2-mod-wsgi
+  - libffi-dev
+  - libssl-dev
+  - libxml2-dev
+  - libxslt1-dev
 
 aodh_apt_test_packages:
   - git
