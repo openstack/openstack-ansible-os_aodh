@@ -20,11 +20,18 @@ debug: False
 # Options are 'present' and 'latest'
 aodh_package_state: "latest"
 
+## Toggle developer mode
+aodh_developer_mode: false
+
+## The git source/branch
 aodh_git_repo: https://git.openstack.org/openstack/aodh
 aodh_git_install_branch: master
+
+## The git source/branch for the upper-constraints (used in developer mode)
 aodh_requirements_git_repo: https://git.openstack.org/openstack/requirements
 aodh_requirements_git_install_branch: master
-aodh_developer_mode: false
+
+## The packages to build from source (used in developer mode)
 aodh_developer_constraints:
   - "git+{{ aodh_git_repo }}@{{ aodh_git_install_branch }}#egg=aodh"
 
@@ -32,6 +39,7 @@ aodh_developer_constraints:
 aodh_venv_tag: untagged
 aodh_bin: "/openstack/venvs/aodh-{{ aodh_venv_tag }}/bin"
 
+# URL of the pre-built virtualenv
 aodh_venv_download_url: http://127.0.0.1/venvs/untagged/ubuntu/aodh.tgz
 
 ## System info
