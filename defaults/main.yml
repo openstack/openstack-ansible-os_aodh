@@ -109,6 +109,7 @@ aodh_pip_packages:
   - pycrypto
   - warlock
   - PyMySQL
+  - gnocchiclient
 
 ## Service Names
 aodh_service_names:
