@@ -68,7 +68,6 @@ aodh_role_name: admin
 aodh_alarm_notifier_program_name: aodh-notifier
 aodh_alarm_evaluator_program_name: aodh-evaluator
 aodh_listener_program_name: aodh-listener
-aodh_api_program_name: aodh-api
 
 ## Service Type and Data
 aodh_service_region: RegionOne

@@ -33,15 +33,6 @@
 
 - include: aodh_init_common.yml
   vars:
-    program_name: "{{ aodh_api_program_name }}"
-    service_name: "{{ aodh_service_name }}"
-    system_user: "{{ aodh_system_user_name }}"
-    system_group: "{{ aodh_system_group_name }}"
-    service_home: "{{ aodh_system_user_home }}"
-  when: inventory_hostname in groups['aodh_api']
-
-- include: aodh_init_common.yml
-  vars:
     program_name: "{{ aodh_listener_program_name }}"
     service_name: "{{ aodh_service_name }}"
     system_user: "{{ aodh_system_user_name }}"
