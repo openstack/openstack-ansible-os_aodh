@@ -5,7 +5,6 @@ Table of Contents
 .. toctree::
    :maxdepth: 2
 
-   overview.rst
    configure-aodh.rst
 
 Default variables
