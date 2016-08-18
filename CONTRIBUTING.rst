@@ -1,7 +1,5 @@
 OpenStack aodh
 ##############
-:tags: openstack, aodh, cloud, ansible
-:category: \*nix
 
 contributor guidelines
 ^^^^^^^^^^^^^^^^^^^^^^
