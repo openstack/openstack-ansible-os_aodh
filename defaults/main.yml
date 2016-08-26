@@ -68,7 +68,7 @@ aodh_apache_log_level: info
 aodh_apache_servertokens: "Prod"
 aodh_apache_serversignature: "Off"
 aodh_wsgi_threads: 10
-aodh_wsgi_processes: "{{ ansible_processor_vcpus | default (1) * 2 }}"
+aodh_wsgi_processes: "{{ (ansible_processor_vcpus | int > 0) | ternary (ansible_processor_vcpus, 1) * 2 }}"
 
 #Aodh services info
 aodh_role_name: admin
