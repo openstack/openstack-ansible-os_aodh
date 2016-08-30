@@ -17,7 +17,7 @@
 cache_timeout: 600
 
 # Common apt packages
-aodh_apt_packages:
+aodh_distro_packages:
   - rpcbind
   - apache2
   - apache2-utils
@@ -27,5 +27,5 @@ aodh_apt_packages:
   - libxml2-dev
   - libxslt1-dev
 
-aodh_apt_test_packages:
+aodh_test_distro_packages:
   - git
