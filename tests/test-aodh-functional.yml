@@ -33,7 +33,7 @@
       retries: 5
       delay: 10
   vars_files:
-    - playbooks/test-vars.yml
+    - common/test-vars.yml
     - test-vars.yml
 
 - name: Playbook for Tempest testing aodh
@@ -48,5 +48,5 @@
       environment:
         RUN_TEMPEST_OPTS: "--serial"
   vars_files:
-    - playbooks/test-vars.yml
+    - common/test-vars.yml
     - test-vars.yml

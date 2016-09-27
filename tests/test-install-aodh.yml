@@ -60,7 +60,7 @@
       delegate_to: "10.100.100.2"
       when: inventory_hostname == groups['aodh_all'][0]
   roles:
-    - role: "{{ rolename | basename }}"
+    - role: "os_aodh"
   vars_files:
-    - playbooks/test-vars.yml
+    - common/test-vars.yml
     - test-vars.yml
