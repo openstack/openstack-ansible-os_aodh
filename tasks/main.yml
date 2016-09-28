@@ -57,7 +57,7 @@
     - aodh-install
     - aodh-config
 
-- include: aodh_init.yml
+- include: aodh_init_common.yml
   tags:
     - aodh-install
 
