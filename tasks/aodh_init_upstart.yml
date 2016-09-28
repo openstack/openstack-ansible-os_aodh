@@ -16,24 +16,11 @@
 - name: Place the init script
   template:
     src: "aodh-upstart-init.j2"
-    dest: "/etc/init/{{ program_name }}.conf"
+    dest: "/etc/init/{{ item.value.service_name }}.conf"
     mode: "0644"
     owner: "root"
     group: "root"
-  register: upstart_init
+  with_dict: "{{ aodh_services }}"
+  when: inventory_hostname in groups[item.value.group]
   notify:
-    - Restart aodh services
-
-- name: Reload init scripts
-  shell: |
-    initctl reload-configuration
-  register: upstart_init
-  notify:
-    - Restart aodh services
-
-- name: Load service
-  service:
-    name: "{{ program_name }}"
-    enabled: "yes"
-  notify:
-    - Restart aodh services
+    - Reload upstart init scripts

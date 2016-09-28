@@ -73,10 +73,6 @@ aodh_wsgi_processes: "{{ (ansible_processor_vcpus | int > 0) | ternary (ansible_
 #Aodh services info
 aodh_role_name: admin
 
-aodh_alarm_notifier_program_name: aodh-notifier
-aodh_alarm_evaluator_program_name: aodh-evaluator
-aodh_listener_program_name: aodh-listener
-
 ## Service Type and Data
 aodh_service_region: RegionOne
 aodh_service_endpoint_type: internalURL
@@ -118,12 +114,20 @@ aodh_pip_packages:
   - PyMySQL
   - gnocchiclient
 
-## Service Names
-aodh_service_names:
-  - "aodh-api"
-  - "aodh-notifier"
-  - "aodh-evaluator"
-  - "aodh-listener"
+## Service Name-Group Mapping
+aodh_services:
+  aodh-api:
+    group: aodh_api
+    service_name: aodh-api
+  aodh-notifier:
+    group: aodh_alarm_notifier
+    service_name: aodh-notifier
+  aodh-evaluator:
+    group: aodh_alarm_evaluator
+    service_name: aodh-evaluator
+  aodh-listener:
+    group: aodh_listener
+    service_name: aodh-listener
 
 aodh_required_secrets:
   - memcached_encryption_key

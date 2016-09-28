@@ -23,7 +23,9 @@
 
 - name: Load service
   service:
-   name: "{{ program_name }}"
+   name: "{{ item.value.service_name }}"
    enabled: "yes"
+  with_dict: "{{ aodh_services }}"
+  when: inventory_hostname in groups[item.value.group]
   notify:
     - Restart aodh services
