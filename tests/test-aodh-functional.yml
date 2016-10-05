@@ -34,7 +34,6 @@
       delay: 10
   vars_files:
     - common/test-vars.yml
-    - test-vars.yml
 
 - name: Playbook for Tempest testing aodh
   hosts: utility_all
@@ -49,4 +48,3 @@
         RUN_TEMPEST_OPTS: "--serial"
   vars_files:
     - common/test-vars.yml
-    - test-vars.yml
