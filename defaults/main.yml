@@ -116,9 +116,6 @@ aodh_pip_packages:
 
 ## Service Name-Group Mapping
 aodh_services:
-  aodh-api:
-    group: aodh_api
-    service_name: aodh-api
   aodh-notifier:
     group: aodh_alarm_notifier
     service_name: aodh-notifier
