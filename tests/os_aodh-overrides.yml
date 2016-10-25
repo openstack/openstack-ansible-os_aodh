@@ -14,7 +14,7 @@
 # limitations under the License.
 
 aodh_container_db_password: "secrete"
-aodh_db_address: "{{ hostvars[groups['galera_all'][0]]['ansible_ssh_host'] }}"
+aodh_db_address: "{{ hostvars[groups['galera_all'][0]]['ansible_host'] }}"
 aodh_database_name: aodh
 aodh_rabbitmq_password: "secrete"
 aodh_rabbitmq_userid: aodh
@@ -24,9 +24,9 @@ aodh_developer_mode: true
 aodh_git_install_branch: master
 aodh_requirements_git_install_branch: master
 aodh_service_password: "secrete"
-aodh_service_publicuri: "{{ aodh_service_proto }}://{{ hostvars[groups['aodh_all'][0]]['ansible_ssh_host'] }}:{{ aodh_service_port }}"
-aodh_service_internaluri: "{{ aodh_service_proto }}://{{ hostvars[groups['aodh_all'][0]]['ansible_ssh_host'] }}:{{ aodh_service_port }}"
-aodh_service_adminuri: "{{ aodh_service_proto }}://{{ hostvars[groups['aodh_all'][0]]['ansible_ssh_host'] }}:{{ aodh_service_port }}"
+aodh_service_publicuri: "{{ aodh_service_proto }}://{{ hostvars[groups['aodh_all'][0]]['ansible_host'] }}:{{ aodh_service_port }}"
+aodh_service_internaluri: "{{ aodh_service_proto }}://{{ hostvars[groups['aodh_all'][0]]['ansible_host'] }}:{{ aodh_service_port }}"
+aodh_service_adminuri: "{{ aodh_service_proto }}://{{ hostvars[groups['aodh_all'][0]]['ansible_host'] }}:{{ aodh_service_port }}"
 
 tempest_bin: "/opt/tempest_{{ tempest_venv_tag }}/bin"
 tempest_plugins:
