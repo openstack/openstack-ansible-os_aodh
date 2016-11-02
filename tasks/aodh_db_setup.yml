@@ -17,3 +17,4 @@
   command: "{{ aodh_bin }}/aodh-dbsync"
   become: yes
   become_user: "{{ aodh_system_user_name }}"
+  changed_when: false
