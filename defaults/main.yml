@@ -28,10 +28,6 @@ aodh_developer_mode: false
 aodh_git_repo: https://git.openstack.org/openstack/aodh
 aodh_git_install_branch: master
 
-## The git source/branch for the upper-constraints (used in developer mode)
-aodh_requirements_git_repo: https://git.openstack.org/openstack/requirements
-aodh_requirements_git_install_branch: master
-
 ## The packages to build from source (used in developer mode)
 aodh_developer_constraints:
   - "git+{{ aodh_git_repo }}@{{ aodh_git_install_branch }}#egg=aodh"
