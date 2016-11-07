@@ -39,18 +39,11 @@
   retries: 5
   delay: 2
 
-- name: Get remote venv checksum
-  uri:
-    url: "{{ aodh_venv_download_url | replace('tgz', 'checksum') }}"
-    return_content: True
-  when: not aodh_developer_mode | bool
-  register: remote_venv_checksum
-
 - name: Attempt venv download
   get_url:
     url: "{{ aodh_venv_download_url }}"
     dest: "/var/cache/{{ aodh_venv_download_url | basename }}"
-    checksum: "sha1:{{ remote_venv_checksum.content | trim }}"
+    checksum: "sha1:{{ lookup('url', aodh_venv_download_url | replace('tgz', 'checksum')) }}"
   register: aodh_get_venv
   when: not aodh_developer_mode | bool
 
