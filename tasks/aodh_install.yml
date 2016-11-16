@@ -91,7 +91,7 @@
 
 - name: Update virtualenv path
   command: >
-    virtualenv-tools --update-path=auto {{ aodh_bin | dirname }}
+    virtualenv-tools --update-path=auto --reinitialize {{ aodh_bin | dirname }}
   when:
     - not aodh_developer_mode | bool
     - aodh_get_venv | changed or aodh_venv_dir | changed
