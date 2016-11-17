@@ -18,48 +18,14 @@
   user: root
   gather_facts: true
   pre_tasks:
-    - name: Ensure rabbitmq vhost
-      rabbitmq_vhost:
-        name: "{{ aodh_rabbitmq_vhost }}"
-        state: "present"
-      delegate_to: "10.100.100.2"
-      when: inventory_hostname == groups['aodh_all'][0]
-    - name: Ensure rabbitmq user
-      rabbitmq_user:
-        user: "{{ aodh_rabbitmq_userid }}"
-        password: "{{ aodh_rabbitmq_password }}"
-        vhost: "{{ aodh_rabbitmq_vhost }}"
-        configure_priv: ".*"
-        read_priv: ".*"
-        write_priv: ".*"
-        state: "present"
-      delegate_to: "10.100.100.2"
-      when: inventory_hostname == groups['aodh_all'][0]
-    - name: Create DB for service
-      mysql_db:
-        login_user: "root"
-        login_password: "secrete"
-        login_host: "localhost"
-        name: "{{ aodh_database_name }}"
-        state: "present"
-      delegate_to: "10.100.100.2"
-      when: inventory_hostname == groups['aodh_all'][0]
-    - name: Grant access to the DB for the service
-      mysql_user:
-        login_user: "root"
-        login_password: "secrete"
-        login_host: "localhost"
-        name: "{{ aodh_database_name }}"
-        password: "{{ aodh_container_db_password }}"
-        host: "{{ item }}"
-        state: "present"
-        priv: "{{ aodh_database_name }}.*:ALL"
-      with_items:
-        - "localhost"
-        - "%"
-      delegate_to: "10.100.100.2"
-      when: inventory_hostname == groups['aodh_all'][0]
+    - include: common/ensure-rabbitmq.yml
+      vhost_name: "{{ aodh_rabbitmq_vhost }}"
+      user_name: "{{ aodh_rabbitmq_userid }}"
+      user_password: "{{ aodh_rabbitmq_password }}"
+    - include: common/create-grant-db.yml
+      db_name: "{{ aodh_database_name }}"
+      db_password: "{{ aodh_container_db_password }}"
   roles:
-    - role: "os_aodh"
+    - role: "{{ aodh_rolename | default('os_aodh') }}"
   vars_files:
     - common/test-vars.yml
