@@ -25,8 +25,5 @@
 # Install Aodh
 - include: test-install-aodh.yml
 
-# Install Tempest
+# Install and execute Tempest
 - include: common/test-install-tempest.yml
-
-# Test
-- include: test-aodh-functional.yml
