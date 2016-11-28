@@ -89,6 +89,15 @@
   when: aodh_developer_mode | bool
   notify: Restart aodh services
 
+- name: CentOS remove python from path first
+  file:
+    path:  "{{ aodh_bin | dirname }}/bin/python2.7"
+    state: "absent"
+  when:
+    - ansible_pkg_mgr == 'yum'
+    - not aodh_developer_mode | bool
+    - aodh_get_venv | changed or aodh_venv_dir | changed
+
 - name: Update virtualenv path
   command: >
     virtualenv-tools --update-path=auto --reinitialize {{ aodh_bin | dirname }}
