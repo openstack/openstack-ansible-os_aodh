@@ -34,7 +34,7 @@
 
 - name: Restart Apache
   service:
-    name: "apache2"
+    name: "{{ aodh_system_service_name }}"
     state: "restarted"
     pattern: "apache2"
   register: apache_restart

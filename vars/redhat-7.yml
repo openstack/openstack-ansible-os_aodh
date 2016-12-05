@@ -13,35 +13,31 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-## APT Cache options
-cache_timeout: 600
-
-# Common apt packages
+# Common packages
 aodh_distro_packages:
   - rpcbind
-  - apache2
-  - apache2-utils
-  - libapache2-mod-wsgi
-  - libffi-dev
-  - libssl-dev
-  - libxml2-dev
-  - libxslt1-dev
+  - httpd
+  - httpd-tools
+  - mod_wsgi
+  - libffi-devel
+  - openssl-devel
+  - libxml2-devel
+  - libxslt-devel
 
 aodh_test_distro_packages:
   - git
 
-aodh_system_service_name: apache2
+aodh_system_service_name: httpd
 
 aodh_apache_config:
-  - { src: "aodh-ports.conf.j2", dest: "/etc/apache2/ports.conf" }
-  - { src: "aodh-httpd.conf.j2", dest: "/etc/apache2/sites-available/aodh-httpd.conf" }
+  - { src: "aodh-ports.conf.j2", dest: "/etc/httpd/conf.d/ports.conf" }
+  - { src: "aodh-httpd.conf.j2", dest: "/etc/httpd/conf.d/aodh-httpd.conf" }
 
 aodh_apache_default_sites:
-  - "/etc/apache2/sites-enabled/000-default.conf"
+  - "/etc/httpd/conf.d/userdir.conf"
+  - "/etc/httpd/conf.d/welcome.conf"
+  - "/etc/httpd/conf.d/ssl.conf"
 
-aodh_apache_site_available: "/etc/apache2/sites-available/aodh-httpd.conf"
-aodh_apache_site_enabled: "/etc/apache2/sites-enabled/aodh-httpd.conf"
-
-aodh_apache_conf: "/etc/apache2/apache2.conf"
-aodh_apache_security_conf: "/etc/apache2/conf-available/security.conf"
+aodh_apache_conf: "/etc/httpd/conf/httpd.conf"
+aodh_apache_security_conf: "{{ aodh_apache_conf }}"
 

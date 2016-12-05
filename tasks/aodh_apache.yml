@@ -20,37 +20,39 @@
     dest: "{{ item.dest }}"
     owner: "root"
     group: "root"
-  with_items:
-    - { src: "aodh-ports.conf.j2", dest: "/etc/apache2/ports.conf" }
-    - { src: "aodh-httpd.conf.j2", dest: "/etc/apache2/sites-available/aodh-httpd.conf" }
+  with_items: "{{ aodh_apache_config }}"
   notify:
     - Restart Apache
 
 - name: Disable default apache site
   file:
-    path: "/etc/apache2/sites-enabled/000-default.conf"
+    path: "{{ item }}"
     state: "absent"
+  with_items: "{{ aodh_apache_default_sites }}"
   notify:
     - Restart Apache
 
 - name: Enabled aodh vhost
   file:
-    src: "/etc/apache2/sites-available/aodh-httpd.conf"
-    dest: "/etc/apache2/sites-enabled/aodh-httpd.conf"
+    src: "{{ aodh_apache_site_available }}"
+    dest: "{{ aodh_apache_site_enabled }}"
     state: "link"
+  when:
+    - aodh_apache_site_available is defined
+    - aodh_apache_site_enabled is defined
   notify:
     - Restart Apache
 
 - name: Ensure Apache ServerName
   lineinfile:
-    dest: "/etc/apache2/apache2.conf"
+    dest: "{{ aodh_apache_conf }}"
     line: "ServerName {{ inventory_hostname }}"
   notify:
     - Restart Apache
 
 - name: Ensure Apache ServerTokens
   lineinfile:
-    dest: "/etc/apache2/conf-available/security.conf"
+    dest: "{{ aodh_apache_security_conf }}"
     regexp: '^ServerTokens'
     line: "ServerTokens {{ aodh_apache_servertokens }}"
   notify:
@@ -58,8 +60,24 @@
 
 - name: Ensure Apache ServerSignature
   lineinfile:
-    dest: "/etc/apache2/conf-available/security.conf"
+    dest: "{{ aodh_apache_security_conf }}"
     regexp: '^ServerSignature'
     line: "ServerSignature {{ aodh_apache_serversignature }}"
   notify:
     - Restart Apache
+
+- name: remove Listen from Apache config
+  lineinfile:
+    dest: "{{ aodh_apache_security_conf }}"
+    regexp: '^(Listen.*)'
+    backrefs: yes
+    line: '#\1'
+  notify:
+    - Restart Apache
+
+- name: Load service
+  service:
+    name: "{{ aodh_system_service_name }}"
+    enabled: "yes"
+    state: "started"
+
