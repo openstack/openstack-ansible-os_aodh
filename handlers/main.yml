@@ -18,17 +18,10 @@
   notify:
     - Restart aodh services
 
-- name: Reload upstart init scripts
-  command: initctl reload-configuration
-  changed_when: false
-  notify:
-    - Restart aodh services
-
 - name: Restart aodh services
   service:
     name: "{{ item.value.service_name }}"
     state: "restarted"
-    pattern: "{{ item.value.service_name }}"
   with_dict: "{{ aodh_services }}"
   when: inventory_hostname in groups[item.value.group]
 
@@ -36,7 +29,6 @@
   service:
     name: "{{ aodh_system_service_name }}"
     state: "restarted"
-    pattern: "apache2"
   register: apache_restart
   until: apache_restart | success
   retries: 5
