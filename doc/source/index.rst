@@ -7,6 +7,9 @@ Table of Contents
 
    configure-aodh.rst
 
+To clone or view the source code for this repository, visit the role repository
+for `os_aodh <https://github.com/openstack/openstack-ansible-os_aodh>`_.
+
 Default variables
 ~~~~~~~~~~~~~~~~~
 
