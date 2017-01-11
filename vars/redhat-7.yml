@@ -23,6 +23,7 @@ aodh_distro_packages:
   - openssl-devel
   - libxml2-devel
   - libxslt-devel
+  - which
 
 aodh_test_distro_packages:
   - git
