@@ -80,6 +80,7 @@
   file:
     path: "{{ aodh_bin | dirname }}"
     state: directory
+    mode: "0755"
   register: aodh_venv_dir
   when:
     - not aodh_developer_mode | bool
