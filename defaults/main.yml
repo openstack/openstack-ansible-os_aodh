@@ -36,6 +36,9 @@ aodh_developer_constraints:
 aodh_venv_tag: untagged
 aodh_bin: "/openstack/venvs/aodh-{{ aodh_venv_tag }}/bin"
 
+# venv_download, even when true, will use the fallback method of building the
+# venv from scratch if the venv download fails.
+aodh_venv_download: "{{ not aodh_developer_mode | bool }}"
 # URL of the pre-built virtualenv
 aodh_venv_download_url: http://127.0.0.1/venvs/untagged/ubuntu/aodh.tgz
 

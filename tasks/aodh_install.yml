@@ -68,7 +68,7 @@
     dest: "/var/cache/{{ aodh_venv_download_url | basename }}"
     checksum: "sha1:{{ lookup('url', aodh_venv_download_url | replace('tgz', 'checksum')) }}"
   register: aodh_get_venv
-  when: not aodh_developer_mode | bool
+  when: aodh_venv_download | bool
 
 - name: Remove existing venv
   file:
@@ -82,18 +82,14 @@
     state: directory
     mode: "0755"
   register: aodh_venv_dir
-  when:
-    - not aodh_developer_mode | bool
-    - aodh_get_venv | changed
+  when: aodh_get_venv | changed
 
 - name: Unarchive pre-built venv
   unarchive:
     src: "/var/cache/{{ aodh_venv_download_url | basename }}"
     dest: "{{ aodh_bin | dirname }}"
     copy: "no"
-  when:
-    - not aodh_developer_mode | bool
-    - aodh_get_venv | changed or aodh_venv_dir | changed
+  when: aodh_get_venv | changed
   notify: Restart aodh services
 
 - name: Install pip packages
@@ -110,7 +106,7 @@
   until: install_packages|success
   retries: 5
   delay: 2
-  when: aodh_developer_mode | bool
+  when: aodh_get_venv | failed or aodh_get_venv | skipped
   notify: Restart aodh services
 
 - name: CentOS remove python from path first
@@ -119,12 +115,9 @@
     state: "absent"
   when:
     - ansible_pkg_mgr == 'yum'
-    - not aodh_developer_mode | bool
-    - aodh_get_venv | changed or aodh_venv_dir | changed
+    - aodh_get_venv | changed
 
 - name: Update virtualenv path
   command: >
     virtualenv-tools --update-path=auto --reinitialize {{ aodh_bin | dirname }}
-  when:
-    - not aodh_developer_mode | bool
-    - aodh_get_venv | changed or aodh_venv_dir | changed
+  when: aodh_get_venv | changed
