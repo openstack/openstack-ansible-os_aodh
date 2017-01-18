@@ -22,8 +22,8 @@ aodh_rabbitmq_userid: aodh
 aodh_rabbitmq_vhost: /aodh
 aodh_venv_tag: "testing"
 aodh_developer_mode: true
-aodh_git_install_branch: master
-aodh_requirements_git_install_branch: master
+aodh_git_install_branch: stable/newton
+aodh_requirements_git_install_branch: stable/newton
 aodh_service_password: "secrete"
 aodh_service_publicuri: "{{ aodh_service_proto }}://{{ hostvars[groups['aodh_all'][0]]['ansible_host'] }}:{{ aodh_service_port }}"
 aodh_service_internaluri: "{{ aodh_service_proto }}://{{ hostvars[groups['aodh_all'][0]]['ansible_host'] }}:{{ aodh_service_port }}"
@@ -33,4 +33,4 @@ tempest_bin: "/opt/tempest_{{ tempest_venv_tag }}/bin"
 tempest_plugins:
   - name: tempest-aodh
     repo: https://git.openstack.org/openstack/aodh
-    branch: master
+    branch: stable/newton
