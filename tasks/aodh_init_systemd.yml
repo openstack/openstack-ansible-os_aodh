@@ -63,4 +63,4 @@
   with_dict: "{{ aodh_services }}"
   when: inventory_hostname in groups[item.value.group]
   notify:
-    - Reload systemd daemon
+    - Restart aodh services

@@ -12,16 +12,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-- name: Reload systemd daemon
-  command: "systemctl daemon-reload"
-  notify:
-    - Restart aodh services
-
 - name: Restart aodh services
-  service:
+  systemd:
     name: "{{ item.value.service_name }}"
     state: "restarted"
+    daemon_reload: yes
   with_dict: "{{ aodh_services }}"
   when: inventory_hostname in groups[item.value.group]
 
