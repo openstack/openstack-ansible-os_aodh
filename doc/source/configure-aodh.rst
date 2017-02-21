@@ -52,6 +52,5 @@ The ``metering-alarm_hosts`` provides several services:
 These services communicate by using the OpenStack messaging bus. Only
 the API server has access to the data store.
 
-Run the ``os-aodh-install.yml`` playbook. If deploying a new OpenStack
-(instead of only Aodh), run ``setup-openstack.yml``.
-The Aodh playbooks run as part of this playbook.
+To install aodh on an existing OpenStack-Ansible environment, run the
+``os-aodh-install.yml`` playbook.
