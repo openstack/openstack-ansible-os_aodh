@@ -85,7 +85,8 @@ aodh_service_description: "Telemetry"
 aodh_service_project_domain_id: default
 aodh_service_user_domain_id: default
 aodh_service_user_name: aodh
-aodh_keystone_auth_plugin: password
+aodh_keystone_auth_plugin: "{{ aodh_keystone_auth_type }}"
+aodh_keystone_auth_type: password
 aodh_service_tenant_name: service
 aodh_service_project_name: service
 aodh_service_publicuri: "{{ aodh_service_proto }}://{{ external_lb_vip_address }}:{{ aodh_service_port }}"
