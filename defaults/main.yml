@@ -110,17 +110,24 @@ aodh_pip_packages:
   - PyMySQL
   - gnocchiclient
 
+aodh_alarm_notifier_init_overrides: {}
+aodh_alarm_evaluator_init_overrides: {}
+aodh_listener_init_overrides: {}
+
 ## Service Name-Group Mapping
 aodh_services:
   aodh-notifier:
     group: aodh_alarm_notifier
     service_name: aodh-notifier
+    init_config_overrides: "{{ aodh_alarm_notifier_init_overrides }}"
   aodh-evaluator:
     group: aodh_alarm_evaluator
     service_name: aodh-evaluator
+    init_config_overrides: "{{ aodh_alarm_evaluator_init_overrides }}"
   aodh-listener:
     group: aodh_listener
     service_name: aodh-listener
+    init_config_overrides: "{{ aodh_listener_init_overrides }}"
 
 aodh_required_secrets:
   - memcached_encryption_key
