@@ -107,14 +107,21 @@ aodh_requires_pip_packages:
 
 # Common pip packages
 aodh_pip_packages:
-  - "aodh[mysql]"
-  - python-ceilometerclient
+  # The following constraints are taken from the setup.cfg
+  # file in the aodh project. This is due to the fact that the repo-build
+  # role does not respect constraints specified in setup.cfg files.
+  # https://github.com/openstack/aodh/blob/master/setup.cfg#L35-L38
+  - alembic>=0.7.2
+  - aodh
   - ceilometermiddleware
-  - python-memcached
-  - pycrypto
-  - warlock
-  - PyMySQL
   - gnocchiclient
+  - pycrypto
+  - PyMySQL>=0.6.2
+  - python-ceilometerclient
+  - python-memcached
+  - sqlalchemy<1.1.0,>=0.9.7
+  - sqlalchemy-utils
+  - warlock
 
 aodh_alarm_notifier_init_overrides: {}
 aodh_alarm_evaluator_init_overrides: {}
