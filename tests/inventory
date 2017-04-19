@@ -1,7 +1,7 @@
 [all]
-localhost ansible_become=True
-infra1 ansible_host=10.1.0.2 ansible_become=True ansible_user=root
-openstack1 ansible_host=10.1.0.3 ansible_become=True ansible_user=root
+localhost
+infra1
+openstack1
 
 [all_containers]
 infra1
