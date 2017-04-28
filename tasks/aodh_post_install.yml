@@ -32,12 +32,12 @@
       config_overrides: "{{ aodh_api_paste_ini_overrides }}"
       config_type: "ini"
     - src: "policy.json.j2"
-      dest: "/etc/aodh/policy.json"
+      dest: "/etc/aodh/policy.json-{{ aodh_venv_tag }}"
       config_overrides: "{{ aodh_policy_overrides }}"
       config_type: "json"
   notify:
     - Restart aodh services
-    - Restart Apache
+    - Restart web server
 
 - name: Drop aodh API WSGI Configs
   template:
@@ -47,4 +47,4 @@
     group: "{{ aodh_system_group_name }}"
     mode: "0755"
   notify:
-    - Restart Apache
+    - Restart web server

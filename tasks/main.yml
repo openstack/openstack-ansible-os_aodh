@@ -44,7 +44,7 @@
   tags:
     - aodh-config
 
-- include: aodh_init_common.yml
+- include: "aodh_init_{{ ansible_service_mgr }}.yml"
   tags:
     - aodh-config
 

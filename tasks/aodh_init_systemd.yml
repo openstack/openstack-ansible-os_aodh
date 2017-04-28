@@ -52,6 +52,8 @@
     group: "root"
   with_dict: "{{ aodh_services }}"
   when: inventory_hostname in groups[item.value.group]
+  notify:
+    - Restart aodh services
 
 - name: Place the systemd init script
   config_template:

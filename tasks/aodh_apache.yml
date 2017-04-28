@@ -22,7 +22,7 @@
     group: "root"
   with_items: "{{ aodh_apache_config }}"
   notify:
-    - Restart Apache
+    - Restart web server
 
 - name: Disable default apache site
   file:
@@ -30,7 +30,7 @@
     state: "absent"
   with_items: "{{ aodh_apache_default_sites }}"
   notify:
-    - Restart Apache
+    - Restart web server
 
 - name: Enabled aodh vhost
   file:
@@ -41,14 +41,14 @@
     - aodh_apache_site_available is defined
     - aodh_apache_site_enabled is defined
   notify:
-    - Restart Apache
+    - Restart web server
 
 - name: Ensure Apache ServerName
   lineinfile:
     dest: "{{ aodh_apache_conf }}"
     line: "ServerName {{ inventory_hostname }}"
   notify:
-    - Restart Apache
+    - Restart web server
 
 - name: Ensure Apache ServerTokens
   lineinfile:
@@ -56,7 +56,7 @@
     regexp: '^ServerTokens'
     line: "ServerTokens {{ aodh_apache_servertokens }}"
   notify:
-    - Restart Apache
+    - Restart web server
 
 - name: Ensure Apache ServerSignature
   lineinfile:
@@ -64,7 +64,7 @@
     regexp: '^ServerSignature'
     line: "ServerSignature {{ aodh_apache_serversignature }}"
   notify:
-    - Restart Apache
+    - Restart web server
 
 - name: remove Listen from Apache config
   lineinfile:
@@ -73,11 +73,4 @@
     backrefs: yes
     line: '#\1'
   notify:
-    - Restart Apache
-
-- name: Load service
-  service:
-    name: "{{ aodh_system_service_name }}"
-    enabled: "yes"
-    state: "started"
-
+    - Restart web server
