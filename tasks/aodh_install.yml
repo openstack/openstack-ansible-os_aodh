@@ -125,3 +125,10 @@
   command: >
     virtualenv-tools --update-path=auto --reinitialize {{ aodh_bin | dirname }}
   when: aodh_get_venv | changed
+
+- name: Record the venv tag deployed
+  ini_file:
+    dest: "/etc/ansible/facts.d/openstack_ansible.fact"
+    section: aodh
+    option: venv_tag
+    value: "{{ aodh_venv_tag }}"
