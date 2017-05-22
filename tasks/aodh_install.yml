@@ -95,3 +95,10 @@
   when:
     - not aodh_developer_mode | bool
     - aodh_get_venv | changed or aodh_venv_dir | changed
+
+- name: Record the venv tag deployed
+  ini_file:
+    dest: "/etc/ansible/facts.d/openstack_ansible.fact"
+    section: aodh
+    option: venv_tag
+    value: "{{ aodh_venv_tag }}"
