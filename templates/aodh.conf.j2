@@ -8,7 +8,7 @@ debug = {{ debug }}
 transport_url = rabbit://{% for host in aodh_rabbitmq_servers.split(',') %}{{ aodh_rabbitmq_userid }}:{{ aodh_rabbitmq_password }}@{{ host }}:{{ aodh_rabbitmq_port }}{% if not loop.last %},{% else %}/{{ aodh_rabbitmq_vhost }}{% endif %}{% endfor %}
 
 [oslo_messaging_rabbit]
-rabbit_use_ssl = {{ aodh_rabbitmq_use_ssl }}
+ssl = {{ aodh_rabbitmq_use_ssl }}
 
 [api]
 port = {{ aodh_service_port }}
