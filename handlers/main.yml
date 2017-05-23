@@ -47,6 +47,9 @@
   copy:
     src: "/etc/aodh/policy.json-{{ aodh_venv_tag }}"
     dest: "/etc/aodh/policy.json"
+    owner: "root"
+    group: "{{ aodh_system_group_name }}"
+    mode: "0640"
     remote_src: yes
 
 - name: Start services
