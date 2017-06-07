@@ -114,8 +114,8 @@ aodh_pip_packages:
   - alembic>=0.7.2
   - aodh
   - ceilometermiddleware
+  - cryptography
   - gnocchiclient
-  - pycrypto
   - PyMySQL>=0.6.2
   - python-ceilometerclient
   - python-memcached
