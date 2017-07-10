@@ -14,3 +14,15 @@
     ErrorLog  /var/log/aodh/aodh-apache-error.log
     CustomLog /var/log/aodh/aodh-access.log combined
 </VirtualHost>
+
+<Directory "/var/www/cgi-bin">
+        AllowOverride None
+        Options +ExecCGI -Includes
+        <IfModule !mod_access_compat.c>
+                Require all granted
+        </IfModule>
+        <IfModule mod_access_compat.c>
+                Order allow,deny
+                Allow from all
+        </IfModule>
+</Directory>
