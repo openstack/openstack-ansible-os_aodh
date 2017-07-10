@@ -1,0 +1,50 @@
+---
+# Copyright 2016, Rackspace US, Inc.
+# Copyright 2017, SUSE LINUX GmbH.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Common packages
+aodh_distro_packages:
+  - rpcbind
+  - apache2
+  - apache2-utils
+  - apache2-mod_wsgi
+  - libffi-devel
+  - libopenssl-devel
+  - libxml2-devel
+  - libxslt-devel
+  - which
+
+aodh_test_distro_packages:
+  - git-core
+
+aodh_system_service_name: apache2
+
+aodh_apache_config:
+  - { src: "aodh-ports.conf.j2", dest: "/etc/apache2/conf.d/ports.conf" }
+  - { src: "aodh-httpd.conf.j2", dest: "/etc/apache2/conf.d/aodh-httpd.conf" }
+
+aodh_apache_default_sites:
+  - "/etc/apache2/conf.d/gitweb.conf"
+
+aodh_apache_conf: "/etc/apache2/httpd.conf"
+aodh_apache_security_conf: "{{ aodh_apache_conf }}"
+
+aodh_apache_modules:
+  - name: "authz_host"
+    state: "present"
+  - name: "access_compat"
+    state: "present"
+  - name: "version"
+    state: "present"

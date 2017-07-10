@@ -14,6 +14,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# NOTE(hwoarang) default openSUSE apache2 installation is missing
+# some required modules so enable them here. This can possibly be
+# extended to other distributions if necessary.
+- name: Enable required apache2 modules (SUSE)
+  apache2_module:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+  with_items: "{{ aodh_apache_modules }}"
+  when:
+    - ansible_pkg_mgr ==  'zypper'
+    - aodh_apache_modules is defined
+  notify:
+    - Restart web server
+
 - name: Drop apache2 virtual host and ports file
   template:
     src: "{{ item.src }}"
