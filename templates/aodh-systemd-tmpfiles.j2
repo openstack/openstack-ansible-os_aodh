@@ -1,4 +1,4 @@
 # {{ ansible_managed }}
 
-D /var/lock/{{ item.value.service_name }} 2755 {{ aodh_system_user_name }} {{ aodh_system_group_name }}
-D /var/run/{{ item.value.service_name }} 2755 {{ aodh_system_user_name }} {{ aodh_system_group_name }}
+D /var/lock/{{ item.service_name }} 2755 {{ aodh_system_user_name }} {{ aodh_system_group_name }}
+D /var/run/{{ item.service_name }} 2755 {{ aodh_system_user_name }} {{ aodh_system_group_name }}
