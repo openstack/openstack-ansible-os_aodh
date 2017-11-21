@@ -27,6 +27,7 @@ project_name = {{ aodh_service_project_name }}
 username = {{ aodh_service_user_name }}
 password = {{ aodh_service_password }}
 region_name = {{ keystone_service_region }}
+interface = {{ aodh_service_endpoint_type }}
 
 memcached_servers = {{ memcached_servers }}
 
@@ -37,9 +38,14 @@ memcache_security_strategy = ENCRYPT
 memcache_secret_key = {{ memcached_encryption_key }}
 
 [service_credentials]
-os_auth_url = {{ keystone_service_internalurl }}
-os_username = {{ aodh_service_user_name }}
-os_tenant_name = {{ aodh_service_tenant_name }}
-os_password = {{ aodh_service_password }}
+insecure = {{ keystone_service_internaluri_insecure | bool }}
+auth_type = {{ aodh_keystone_auth_plugin }}
+auth_url = {{ keystone_service_internalurl }}
+project_domain_id = {{ aodh_service_project_domain_id }}
+user_domain_id = {{ aodh_service_user_domain_id }}
+project_name = {{ aodh_service_project_name }}
+username = {{ aodh_service_user_name }}
+tenant_name = {{ aodh_service_tenant_name }}
+password = {{ aodh_service_password }}
 region_name = {{ aodh_service_region }}
 interface = {{ aodh_service_endpoint_type }}
