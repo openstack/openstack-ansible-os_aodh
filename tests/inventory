@@ -2,10 +2,14 @@
 localhost
 infra1
 openstack1
+aodh
+gnocchi
 
 [all_containers]
 infra1
 openstack1
+aodh
+gnocchi
 
 [rabbitmq_all]
 infra1
@@ -22,22 +26,25 @@ galera_all
 memcached_all
 
 [keystone_all]
-infra1
+openstack1
 
 [utility_all]
 infra1
 
+[gnocchi_all]
+gnocchi
+
 [aodh_all]
-openstack1
+aodh
 
 [aodh_alarm_notifier]
-openstack1
+aodh
 
 [aodh_alarm_evaluator]
-openstack1
+aodh
 
 [aodh_api]
-openstack1
+aodh
 
 [aodh_listener]
-openstack1
+aodh
