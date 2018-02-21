@@ -10,10 +10,10 @@ Type=simple
 User={{ aodh_system_user_name }}
 Group={{ aodh_system_group_name }}
 
-{% if program_override is defined %}
-ExecStart={{ program_override }} {{ program_config_options|default('') }} --log-file=/var/log/aodh/{{ item.value.service_name }}.log
+{% if item.program_override is defined %}
+ExecStart={{ item.program_override }} {{ item.program_config_options|default('') }} --log-file=/var/log/aodh/{{ item.service_name }}.log
 {% else %}
-ExecStart={{ aodh_bin }}/{{ item.value.service_name }} {{ program_config_options|default('') }} --log-file=/var/log/aodh/{{ item.value.service_name }}.log
+ExecStart={{ aodh_bin }}/{{ item.service_name }} {{ item.program_config_options|default('') }} --log-file=/var/log/aodh/{{ item.service_name }}.log
 {% endif %}
 
 # Give a reasonable amount of time for the server to start up/shut down
