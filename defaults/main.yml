@@ -133,14 +133,17 @@ aodh_services:
   aodh-notifier:
     group: aodh_alarm_notifier
     service_name: aodh-notifier
+    execstarts: "{{ aodh_bin }}/aodh-notifier"
     init_config_overrides: "{{ aodh_alarm_notifier_init_overrides }}"
   aodh-evaluator:
     group: aodh_alarm_evaluator
     service_name: aodh-evaluator
+    execstarts: "{{ aodh_bin }}/aodh-evaluator"
     init_config_overrides: "{{ aodh_alarm_evaluator_init_overrides }}"
   aodh-listener:
     group: aodh_listener
     service_name: aodh-listener
+    execstarts: "{{ aodh_bin }}/aodh-listener"
     init_config_overrides: "{{ aodh_listener_init_overrides }}"
 
 aodh_required_secrets:
