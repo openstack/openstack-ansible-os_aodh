@@ -21,6 +21,9 @@ debug: False
 aodh_package_state: "latest"
 aodh_pip_package_state: "latest"
 
+# Set installation method.
+aodh_install_method: "source"
+
 ## Toggle developer mode
 aodh_developer_mode: false
 
@@ -34,7 +37,7 @@ aodh_developer_constraints:
 
 # Name of the virtual env to deploy into
 aodh_venv_tag: untagged
-aodh_bin: "/openstack/venvs/aodh-{{ aodh_venv_tag }}/bin"
+aodh_bin: "{{ _aodh_bin }}"
 
 # venv_download, even when true, will use the fallback method of building the
 # venv from scratch if the venv download fails.

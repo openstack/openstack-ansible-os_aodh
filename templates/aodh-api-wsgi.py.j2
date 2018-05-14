@@ -14,8 +14,10 @@
 
 import os
 
+{% if aodh_install_method == 'source' %}
 activate_this = os.path.expanduser("{{ aodh_bin }}/activate_this.py")
 execfile(activate_this, dict(__file__=activate_this))
+{% endif %}
 
 from aodh.api import app
 

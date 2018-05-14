@@ -32,6 +32,21 @@
   tags:
     - always
 
+- name: Fail if service was deployed using a different installation method
+  fail:
+    msg: "Switching installation methods for OpenStack services is not supported"
+  when:
+    - ansible_local is defined
+    - ansible_local.openstack_ansible is defined
+    - ansible_local.openstack_ansible.aodh is defined
+    - ansible_local.openstack_ansible.aodh.install_method is defined
+    - ansible_local.openstack_ansible.aodh.install_method != aodh_install_method
+
+- name: Gather variables for installation method
+  include_vars: "{{ aodh_install_method }}_install.yml"
+  tags:
+    - always
+
 - include: aodh_pre_install.yml
   tags:
     - aodh-install

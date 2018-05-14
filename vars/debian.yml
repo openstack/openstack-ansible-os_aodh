@@ -27,6 +27,16 @@ aodh_distro_packages:
   - libxml2-dev
   - libxslt1-dev
 
+aodh_service_distro_packages:
+  - apache2
+  - apache2-utils
+  - libapache2-mod-wsgi
+  - aodh-api
+  - aodh-evaluator
+  - aodh-expirer
+  - aodh-listener
+  - aodh-notifier
+
 aodh_test_distro_packages:
   - git
 
@@ -38,6 +48,8 @@ aodh_apache_config:
 
 aodh_apache_default_sites:
   - "/etc/apache2/sites-enabled/000-default.conf"
+  - "/etc/apache2/sites-enabled/aodh-api.conf"
+  - "/etc/apache2/sites-available/aodh-api.conf"
 
 aodh_apache_site_available: "/etc/apache2/sites-available/aodh-httpd.conf"
 aodh_apache_site_enabled: "/etc/apache2/sites-enabled/aodh-httpd.conf"

@@ -26,6 +26,17 @@ aodh_distro_packages:
   - libxslt-devel
   - which
 
+aodh_service_distro_packages:
+  - apache2
+  - apache2-utils
+  - apache2-mod_wsgi
+  - openstack-aodh
+  - openstack-aodh-api
+  - openstack-aodh-evaluator
+  - openstack-aodh-expirer
+  - openstack-aodh-listener
+  - openstack-aodh-notifier
+
 aodh_test_distro_packages:
   - git-core
 
