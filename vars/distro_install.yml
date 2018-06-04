@@ -13,6 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-aodh_package_list: "{{ aodh_service_distro_packages }}"
+aodh_package_list: "{{ aodh_distro_packages + aodh_service_distro_packages }}"
 
 _aodh_bin: "/usr/bin"
