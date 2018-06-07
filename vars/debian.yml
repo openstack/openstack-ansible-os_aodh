@@ -22,15 +22,14 @@ aodh_distro_packages:
   - apache2
   - apache2-utils
   - libapache2-mod-wsgi
+
+aodh_devel_distro_packages:
   - libffi-dev
   - libssl-dev
   - libxml2-dev
   - libxslt1-dev
 
 aodh_service_distro_packages:
-  - apache2
-  - apache2-utils
-  - libapache2-mod-wsgi
   - aodh-api
   - aodh-evaluator
   - aodh-expirer

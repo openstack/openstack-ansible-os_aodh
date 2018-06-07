@@ -19,6 +19,8 @@ aodh_distro_packages:
   - httpd
   - httpd-tools
   - mod_wsgi
+
+aodh_devel_distro_packages:
   - libffi-devel
   - openssl-devel
   - libxml2-devel
@@ -26,9 +28,6 @@ aodh_distro_packages:
   - which
 
 aodh_service_distro_packages:
-  - httpd
-  - httpd-tools
-  - mod_wsgi
   - openstack-aodh-api
   - openstack-aodh-evaluator
   - openstack-aodh-expirer
