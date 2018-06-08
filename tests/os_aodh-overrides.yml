@@ -16,10 +16,12 @@
 aodh_container_db_password: "secrete"
 aodh_db_address: "{{ test_galera_host }}"
 aodh_database_name: aodh
-aodh_rabbitmq_servers: "{{ rabbitmq_servers }}"
-aodh_rabbitmq_password: "secrete"
-aodh_rabbitmq_userid: aodh
-aodh_rabbitmq_vhost: /aodh
+aodh_oslomsg_rpc_password: "secrete"
+aodh_oslomsg_notify_password: "secrete"
+aodh_oslomsg_rpc_userid: aodh
+aodh_oslomsg_rpc_vhost: /aodh
+aodh_oslomsg_notify_userid: aodh
+aodh_oslomsg_notify_vhost: /aodh
 aodh_venv_tag: "testing"
 aodh_developer_mode: true
 aodh_service_password: "secrete"
