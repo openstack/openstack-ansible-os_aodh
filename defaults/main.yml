@@ -120,6 +120,7 @@ aodh_pip_packages:
   - ceilometermiddleware
   - cryptography
   - gnocchiclient
+  - osprofiler
   - PyMySQL>=0.6.2
   - python-ceilometerclient
   - python-memcached
