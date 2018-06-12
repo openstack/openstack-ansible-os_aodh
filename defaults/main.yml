@@ -53,10 +53,11 @@ aodh_system_comment: aodh system user
 aodh_system_user_home: "/var/lib/{{ aodh_system_user_name }}"
 
 ## Database info
+aodh_db_setup_host: "{{ ('galera_all' in groups) | ternary(groups['galera_all'][0], 'localhost') }}"
+aodh_db_address: "{{ galera_address | default('127.0.0.1') }}"
 aodh_database_name: aodh
 aodh_database_user: aodh
 aodh_db_type: "mysql+pymysql"
-aodh_db_address: localhost
 aodh_galera_use_ssl: "{{ galera_use_ssl | default(False) }}"
 aodh_galera_ssl_ca_cert: "{{ galera_ssl_ca_cert | default('/etc/ssl/certs/galera-ca.pem') }}"
 aodh_connection_string: "{{ aodh_db_type }}://{{ aodh_database_user }}:{{ aodh_container_db_password }}@{{ aodh_db_address }}/{{ aodh_database_name }}?charset=utf8{% if aodh_galera_use_ssl | bool %}&ssl_ca={{ aodh_galera_ssl_ca_cert }}{% endif %}"
