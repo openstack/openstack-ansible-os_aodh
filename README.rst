@@ -64,3 +64,18 @@ To use this role, define the following variables:
    keystone_service_internalurl: "{{ keystone_service_internaluri }}/v3"
    keystone_service_adminuri: "http://5.6.7.8:35357"
    keystone_service_adminurl: "{{ keystone_service_adminuri }}/v3"
+
+====================================
+OpenStack-Ansible Aodh
+====================================
+
+Ansible role to install OpenStack Tacker.
+
+Documentation for the project can be found at:
+  https://docs.openstack.org/openstack-ansible-os_aodh/latest/
+
+Release notes for the project can be found at:
+  https://docs.openstack.org/releasenotes/openstack-ansible-os_aodh
+
+The project home is at:
+  http://launchpad.net/openstack-ansible
