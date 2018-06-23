@@ -30,5 +30,5 @@
     keystone_service_internaluri_insecure: false
     keystone_service_internaluri: "http://1.2.3.4:5000"
     keystone_service_internalurl: "{{ keystone_service_internaluri }}/v3"
-    keystone_service_adminuri: "http://5.6.7.8:35357"
+    keystone_service_adminuri: "http://5.6.7.8:5000"
     keystone_service_adminurl: "{{ keystone_service_adminuri }}/v3"
