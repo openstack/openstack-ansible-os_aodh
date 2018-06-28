@@ -2,7 +2,7 @@
   hosts: aodh_all
   user: root
   roles:
-    - { role: "os_aodh" }
+    - role: "os_aodh"
   vars:
     # Needed for aodh to talk to MongoDB
     aodh_container_db_password: "secrete"
@@ -32,3 +32,7 @@
     keystone_service_internalurl: "{{ keystone_service_internaluri }}/v3"
     keystone_service_adminuri: "http://5.6.7.8:5000"
     keystone_service_adminurl: "{{ keystone_service_adminuri }}/v3"
+    galera_root_user: root
+  vars_prompt:
+    - name: "galera_root_password"
+      prompt: "What is galera_root_password?"

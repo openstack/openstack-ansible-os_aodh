@@ -25,10 +25,7 @@
       notify_vhost: "{{ aodh_oslomsg_notify_vhost }}"
       notify_user: "{{ aodh_oslomsg_notify_userid }}"
       notify_password: "{{ aodh_oslomsg_notify_password }}"
-    - include: common/create-grant-db.yml
-      db_name: "{{ aodh_database_name }}"
-      db_password: "{{ aodh_container_db_password }}"
   roles:
-    - role: "{{ aodh_rolename | default('os_aodh') }}"
+    - role: "os_aodh"
   vars_files:
     - common/test-vars.yml
