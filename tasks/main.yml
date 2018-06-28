@@ -84,6 +84,7 @@
     loop_var: service_var
   tags:
     - aodh-config
+    - systemd-service
 
 - include: aodh_db_setup.yml
   when: inventory_hostname == groups['aodh_all'][0]
