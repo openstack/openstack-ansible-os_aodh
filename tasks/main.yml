@@ -68,7 +68,7 @@
     systemd_group_name: "{{ aodh_system_group_name }}"
     systemd_tempd_prefix: openstack
     systemd_slice_name: aodh
-    system_lock_path: /var/lock/aodh
+    systemd_lock_path: /var/lock/aodh
     systemd_CPUAccounting: true
     systemd_BlockIOAccounting: true
     systemd_MemoryAccounting: true
