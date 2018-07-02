@@ -69,7 +69,7 @@ To use this role, define the following variables:
 OpenStack-Ansible Aodh
 ====================================
 
-Ansible role to install OpenStack Tacker.
+Ansible role to install OpenStack Aodh.
 
 Documentation for the project can be found at:
   https://docs.openstack.org/openstack-ansible-os_aodh/latest/
