@@ -31,7 +31,7 @@
       {{ (pip_install_upper_constraints is defined) | ternary('--constraint ' + pip_install_upper_constraints | default(''),'') }}
       {{ pip_install_options | default('') }}
   register: install_packages
-  until: install_packages|success
+  until: install_packages is success
   retries: 5
   delay: 2
 
@@ -54,7 +54,7 @@
   file:
     path: "{{ aodh_bin | dirname }}"
     state: absent
-  when: aodh_get_venv | changed
+  when: aodh_get_venv  is changed
 
 - name: Create aodh venv dir
   file:
@@ -62,14 +62,14 @@
     state: directory
     mode: "0755"
   register: aodh_venv_dir
-  when: aodh_get_venv | changed
+  when: aodh_get_venv  is changed
 
 - name: Unarchive pre-built venv
   unarchive:
     src: "/var/cache/{{ aodh_venv_download_url | basename }}"
     dest: "{{ aodh_bin | dirname }}"
     copy: "no"
-  when: aodh_get_venv | changed
+  when: aodh_get_venv  is changed
   notify: Restart aodh services
 
 - name: Install pip packages
@@ -83,7 +83,7 @@
       {{ (pip_install_upper_constraints is defined) | ternary('--constraint ' + pip_install_upper_constraints | default(''),'') }}
       {{ pip_install_options | default('') }}
   register: install_packages
-  until: install_packages|success
+  until: install_packages is success
   retries: 5
   delay: 2
   when: aodh_get_venv | failed or aodh_get_venv | skipped
@@ -95,7 +95,7 @@
     state: "absent"
   when:
     - ansible_pkg_mgr in ['yum', 'dnf', 'zypper']
-    - aodh_get_venv | changed
+    - aodh_get_venv  is changed
 
 # NOTE(odyssey4me):
 # We reinitialize the venv to ensure that the right
@@ -113,7 +113,7 @@
         --no-pip \
         --no-setuptools \
         --no-wheel
-  when: aodh_get_venv | changed
+  when: aodh_get_venv  is changed
   tags:
     - skip_ansible_lint
 
