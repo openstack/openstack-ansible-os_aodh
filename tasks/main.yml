@@ -86,6 +86,25 @@
     - aodh-config
     - systemd-service
 
+- include_tasks: mq_setup.yml
+  when:
+    - "aodh_services['aodh-api']['group'] in group_names"
+    - "inventory_hostname == ((groups[aodh_services['aodh-api']['group']]| intersect(ansible_play_hosts)) | list)[0]"
+  with_items:
+    - oslomsg_setup_host: "{{ aodh_oslomsg_rpc_setup_host }}"
+      oslomsg_userid: "{{ aodh_oslomsg_rpc_userid }}"
+      oslomsg_password: "{{ aodh_oslomsg_rpc_password }}"
+      oslomsg_vhost: "{{ aodh_oslomsg_rpc_vhost }}"
+      oslomsg_transport: "{{ aodh_oslomsg_rpc_transport }}"
+    - oslomsg_setup_host: "{{ aodh_oslomsg_notify_setup_host }}"
+      oslomsg_userid: "{{ aodh_oslomsg_notify_userid }}"
+      oslomsg_password: "{{ aodh_oslomsg_notify_password }}"
+      oslomsg_vhost: "{{ aodh_oslomsg_notify_vhost }}"
+      oslomsg_transport: "{{ aodh_oslomsg_notify_transport }}"
+  no_log: true
+  tags:
+    - aodh-config
+
 - include: aodh_db_setup.yml
   when: inventory_hostname == groups['aodh_all'][0]
   tags:

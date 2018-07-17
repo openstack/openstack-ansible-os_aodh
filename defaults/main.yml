@@ -64,18 +64,22 @@ aodh_connection_string: "{{ aodh_db_type }}://{{ aodh_database_user }}:{{ aodh_c
 
 # Oslo Messaging
 # RPC
-aodh_oslomsg_rpc_transport: rabbit
-aodh_oslomsg_rpc_servers: 127.0.0.1
-aodh_oslomsg_rpc_port: 5672
-aodh_oslomsg_rpc_use_ssl: False
+aodh_oslomsg_rpc_host_group: "{{ oslomsg_rpc_host_group | default('rabbitmq_all') }}"
+aodh_oslomsg_rpc_setup_host: "{{ (aodh_oslomsg_rpc_host_group in groups) | ternary(groups[aodh_oslomsg_rpc_host_group][0], 'localhost') }}"
+aodh_oslomsg_rpc_transport: "{{ oslomsg_rpc_transport | default('rabbit') }}"
+aodh_oslomsg_rpc_servers: "{{ oslomsg_rpc_servers | default('127.0.0.1') }}"
+aodh_oslomsg_rpc_port: "{{ oslomsg_rpc_port | default('5672') }}"
+aodh_oslomsg_rpc_use_ssl: "{{ oslomsg_rpc_use_ssl | default(False) }}"
 aodh_oslomsg_rpc_userid: aodh
 aodh_oslomsg_rpc_vhost: /aodh
 
 # Notify
-aodh_oslomsg_notify_transport: rabbit
-aodh_oslomsg_notify_servers: 127.0.0.1
-aodh_oslomsg_notify_port: 5672
-aodh_oslomsg_notify_use_ssl: False
+aodh_oslomsg_notify_host_group: "{{ oslomsg_notify_host_group | default('rabbitmq_all') }}"
+aodh_oslomsg_notify_setup_host: "{{ (aodh_oslomsg_notify_host_group in groups) | ternary(groups[aodh_oslomsg_notify_host_group][0], 'localhost') }}"
+aodh_oslomsg_notify_transport: "{{ oslomsg_notify_transport | default('rabbit') }}"
+aodh_oslomsg_notify_servers: "{{ oslomsg_notify_servers | default('127.0.0.1') }}"
+aodh_oslomsg_notify_port: "{{ oslomsg_notify_port | default('5672') }}"
+aodh_oslomsg_notify_use_ssl: "{{ oslomsg_notify_use_ssl | default(False) }}"
 aodh_oslomsg_notify_userid: aodh
 aodh_oslomsg_notify_vhost: /aodh
 
