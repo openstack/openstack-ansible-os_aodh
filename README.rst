@@ -65,9 +65,9 @@ To use this role, define the following variables:
    keystone_service_adminuri: "http://5.6.7.8:5000"
    keystone_service_adminurl: "{{ keystone_service_adminuri }}/v3"
 
-====================================
+======================
 OpenStack-Ansible Aodh
-====================================
+======================
 
 Ansible role to install OpenStack Aodh.
 
