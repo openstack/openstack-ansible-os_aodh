@@ -21,7 +21,7 @@
     daemon_reload: "{{ (ansible_service_mgr == 'systemd') | ternary('yes', omit) }}"
   with_items: "{{ filtered_aodh_services }}"
   register: _stop
-  until: _stop  is success
+  until: _stop is success
   retries: 5
   delay: 2
   listen: Restart aodh services
@@ -52,7 +52,7 @@
     daemon_reload: "{{ (ansible_service_mgr == 'systemd') | ternary('yes', omit) }}"
   with_items: "{{ filtered_aodh_services }}"
   register: _start
-  until: _start  is success
+  until: _start is success
   retries: 5
   delay: 2
   listen: Restart aodh services
