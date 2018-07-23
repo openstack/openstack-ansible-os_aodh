@@ -83,6 +83,10 @@ aodh_oslomsg_notify_use_ssl: "{{ oslomsg_notify_use_ssl | default(False) }}"
 aodh_oslomsg_notify_userid: aodh
 aodh_oslomsg_notify_vhost: /aodh
 
+## (Qdrouterd) info
+# TODO(ansmith): Change structure when more backends will be supported
+aodh_oslomsg_amqp1_enabled: "{{ aodh_oslomsg_rpc_transport == 'amqp' }}"
+
 ## Apache setup
 aodh_apache_log_level: info
 aodh_apache_servertokens: "Prod"
@@ -142,6 +146,9 @@ aodh_pip_packages:
   - sqlalchemy>=0.9.7
   - sqlalchemy-utils
   - warlock
+
+aodh_optional_oslomsg_amqp1_pip_packages:
+  - oslo.messaging[amqp1]
 
 aodh_alarm_notifier_init_overrides: {}
 aodh_alarm_evaluator_init_overrides: {}
