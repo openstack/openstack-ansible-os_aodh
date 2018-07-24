@@ -47,15 +47,15 @@
   tags:
     - always
 
-- include: aodh_pre_install.yml
+- include_tasks: aodh_pre_install.yml
   tags:
     - aodh-install
 
-- include: aodh_install.yml
+- include_tasks: aodh_install.yml
   tags:
     - aodh-install
 
-- include: aodh_post_install.yml
+- include_tasks: aodh_post_install.yml
   tags:
     - aodh-config
 
@@ -104,17 +104,17 @@
     - common-mq
     - aodh-config
 
-- include: aodh_db_setup.yml
+- include_tasks: aodh_db_setup.yml
   when:
     - inventory_hostname == groups['aodh_all'][0]
   tags:
     - aodh-config
 
-- include: aodh_apache.yml
+- include_tasks: aodh_apache.yml
   tags:
     - aodh-config
 
-- include: aodh_service_setup.yml
+- include_tasks: aodh_service_setup.yml
   when:
     - inventory_hostname == groups['aodh_all'][0]
   tags:
