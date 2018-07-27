@@ -17,15 +17,7 @@
   hosts: aodh_all
   user: root
   gather_facts: true
-  pre_tasks:
-    - include: common/ensure-oslomsg.yml
-      rpc_vhost: "{{ aodh_oslomsg_rpc_vhost }}"
-      rpc_user: "{{ aodh_oslomsg_rpc_userid }}"
-      rpc_password: "{{ aodh_oslomsg_rpc_password }}"
-      notify_vhost: "{{ aodh_oslomsg_notify_vhost }}"
-      notify_user: "{{ aodh_oslomsg_notify_userid }}"
-      notify_password: "{{ aodh_oslomsg_notify_password }}"
-  roles:
-    - role: "os_aodh"
   vars_files:
     - common/test-vars.yml
+  roles:
+    - role: "os_aodh"
