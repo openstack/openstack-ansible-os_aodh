@@ -25,6 +25,7 @@ aodh_devel_distro_packages:
   - openssl-devel
   - libxml2-devel
   - libxslt-devel
+  - systemd-devel
   - which
 
 aodh_service_distro_packages:
@@ -33,6 +34,7 @@ aodh_service_distro_packages:
   - openstack-aodh-expirer
   - openstack-aodh-listener
   - openstack-aodh-notifier
+  - systemd-python
 
 aodh_test_distro_packages:
   - git
@@ -50,4 +52,4 @@ aodh_apache_default_sites:
 
 aodh_apache_conf: "/etc/httpd/conf/httpd.conf"
 aodh_apache_security_conf: "{{ aodh_apache_conf }}"
-
+aodh_apache_default_log_folder: "/var/log/httpd"

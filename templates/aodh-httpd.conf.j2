@@ -11,8 +11,8 @@
     </IfVersion>
 
     LogLevel  {{  aodh_apache_log_level }}
-    ErrorLog  /var/log/aodh/aodh-apache-error.log
-    CustomLog /var/log/aodh/aodh-access.log combined
+    ErrorLog  {{ aodh_apache_default_log_folder }}/aodh-apache-error.log
+    CustomLog {{ aodh_apache_default_log_folder }}/aodh-access.log combined
 </VirtualHost>
 
 <Directory "/var/www/cgi-bin">

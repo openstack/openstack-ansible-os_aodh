@@ -141,6 +141,7 @@ aodh_pip_packages:
   - python-memcached
   - sqlalchemy>=0.9.7
   - sqlalchemy-utils
+  - systemd-python
   - warlock
 
 aodh_alarm_notifier_init_overrides: {}

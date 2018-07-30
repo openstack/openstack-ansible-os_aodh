@@ -26,6 +26,8 @@ aodh_devel_distro_packages:
   - libopenssl-devel
   - libxml2-devel
   - libxslt-devel
+  - systemd-devel
+  - pkg-config
   - which
 
 aodh_service_distro_packages:
@@ -35,6 +37,7 @@ aodh_service_distro_packages:
   - openstack-aodh-expirer
   - openstack-aodh-listener
   - openstack-aodh-notifier
+  - python-systemd
 
 aodh_test_distro_packages:
   - git-core
@@ -50,6 +53,7 @@ aodh_apache_default_sites:
 
 aodh_apache_conf: "/etc/apache2/httpd.conf"
 aodh_apache_security_conf: "{{ aodh_apache_conf }}"
+aodh_apache_default_log_folder: "/var/log/apache2"
 
 aodh_apache_modules:
   - name: "authz_host"
@@ -58,3 +62,6 @@ aodh_apache_modules:
     state: "present"
   - name: "version"
     state: "present"
+# This can be enabled when Apache2.5+ is available
+#  - name: "mod_journald"
+#    state: "present

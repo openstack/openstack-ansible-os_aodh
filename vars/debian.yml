@@ -26,8 +26,10 @@ aodh_distro_packages:
 aodh_devel_distro_packages:
   - libffi-dev
   - libssl-dev
+  - libsystemd-dev
   - libxml2-dev
   - libxslt1-dev
+  - pkg-config
 
 aodh_service_distro_packages:
   - aodh-api
@@ -35,6 +37,8 @@ aodh_service_distro_packages:
   - aodh-expirer
   - aodh-listener
   - aodh-notifier
+  - python-systemd
+  - python3-systemd
 
 aodh_test_distro_packages:
   - git
@@ -55,4 +59,9 @@ aodh_apache_site_enabled: "/etc/apache2/sites-enabled/aodh-httpd.conf"
 
 aodh_apache_conf: "/etc/apache2/apache2.conf"
 aodh_apache_security_conf: "/etc/apache2/conf-available/security.conf"
+aodh_apache_default_log_folder: "/var/log/apache2"
 
+# This can be enabled when Apache2.5+ is available
+# aodh_apache_modules:
+#  - name: "mod_journald"
+#    state: "present
