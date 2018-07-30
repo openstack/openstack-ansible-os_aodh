@@ -80,8 +80,9 @@ aodh_oslomsg_notify_transport: "{{ oslomsg_notify_transport | default('rabbit') 
 aodh_oslomsg_notify_servers: "{{ oslomsg_notify_servers | default('127.0.0.1') }}"
 aodh_oslomsg_notify_port: "{{ oslomsg_notify_port | default('5672') }}"
 aodh_oslomsg_notify_use_ssl: "{{ oslomsg_notify_use_ssl | default(False) }}"
-aodh_oslomsg_notify_userid: aodh
-aodh_oslomsg_notify_vhost: /aodh
+aodh_oslomsg_notify_userid: "{{ aodh_oslomsg_rpc_userid }}"
+aodh_oslomsg_notify_password: "{{ aodh_oslomsg_rpc_password }}"
+aodh_oslomsg_notify_vhost: "{{ aodh_oslomsg_rpc_vhost }}"
 
 ## Apache setup
 aodh_apache_log_level: info
