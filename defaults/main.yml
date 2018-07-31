@@ -16,6 +16,11 @@
 ## Verbosity Options
 debug: False
 
+# Set the host which will execute the shade modules
+# for the service setup. The host must already have
+# clouds.yaml properly configured.
+aodh_service_setup_host: "{{ openstack_service_setup_host | default('localhost') }}"
+
 # Set the package install state for distribution and pip packages
 # Options are 'present' and 'latest'
 aodh_package_state: "latest"
@@ -117,12 +122,6 @@ aodh_service_adminuri: "{{ aodh_service_proto }}://{{ internal_lb_vip_address }}
 aodh_service_adminurl: "{{ aodh_service_adminuri }}"
 
 aodh_service_in_ldap: false
-
-# aodh packages that must be installed before anything else
-aodh_requires_pip_packages:
-  - virtualenv
-  - python-keystoneclient # Keystoneclient needed to OSA keystone lib
-  - httplib2
 
 # Common pip packages
 aodh_pip_packages:
