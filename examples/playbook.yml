@@ -1,3 +1,4 @@
+---
 - name: Install aodh services
   hosts: aodh_all
   user: root
