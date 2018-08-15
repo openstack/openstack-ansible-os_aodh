@@ -42,6 +42,11 @@ aodh_service_distro_packages:
 aodh_test_distro_packages:
   - git-core
 
+aodh_oslomsg_amqp1_distro_packages:
+  - cyrus-sasl
+  - cyrus-sasl-plain
+  - cyrus-sasl-digestmd5
+
 aodh_system_service_name: apache2
 
 aodh_apache_config:

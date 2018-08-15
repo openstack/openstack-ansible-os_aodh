@@ -39,6 +39,11 @@ aodh_service_distro_packages:
 aodh_test_distro_packages:
   - git
 
+aodh_oslomsg_amqp1_distro_packages:
+  - cyrus-sasl-lib
+  - cyrus-sasl-plain
+  - cyrus-sasl-md5
+
 aodh_system_service_name: httpd
 
 aodh_apache_config:
