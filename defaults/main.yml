@@ -40,8 +40,20 @@ aodh_git_install_branch: master
 aodh_developer_constraints:
   - "git+{{ aodh_git_repo }}@{{ aodh_git_install_branch }}#egg=aodh"
 
+# TODO(odyssey4me):
+# This can be simplified once all the roles are using
+# python_venv_build. We can then switch to using a
+# set of constraints in pip.conf inside the venv,
+# perhaps prepared by giving a giving a list of
+# constraints to the role.
+aodh_pip_install_args: >-
+  {{ aodh_developer_mode | ternary(pip_install_developer_constraints | default('--constraint /opt/developer-pip-constraints.txt'), '') }}
+  {{ (pip_install_upper_constraints is defined) | ternary('--constraint ' + pip_install_upper_constraints | default(''), '') }}
+  {{ pip_install_options | default('') }}
+
+
 # Name of the virtual env to deploy into
-aodh_venv_tag: untagged
+aodh_venv_tag: "{{ venv_tag | default('untagged') }}"
 aodh_bin: "{{ _aodh_bin }}"
 
 # venv_download, even when true, will use the fallback method of building the
