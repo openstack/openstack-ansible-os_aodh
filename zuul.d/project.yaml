@@ -21,13 +21,10 @@
     check:
       jobs:
         - openstack-ansible-functional-distro_install-ubuntu-xenial
-          # NOTE(hwoarang) Centos7 is having some troubles with repo dependencies
-          # so disabling until it's investigated.
-        - openstack-ansible-functional-distro_install-centos-7:
-            voting: false
+        - openstack-ansible-functional-distro_install-centos-7
         - openstack-ansible-functional-distro_install-opensuse-423
-        - openstack-ansible-aodh-ssl-nv
     gate:
       jobs:
         - openstack-ansible-functional-distro_install-ubuntu-xenial
+        - openstack-ansible-functional-distro_install-centos-7
         - openstack-ansible-functional-distro_install-opensuse-423
