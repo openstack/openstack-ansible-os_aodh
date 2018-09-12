@@ -43,6 +43,10 @@ aodh_service_distro_packages:
 aodh_test_distro_packages:
   - git
 
+aodh_oslomsg_amqp1_distro_packages:
+  - libsasl2-modules
+  - sasl2-bin
+
 aodh_system_service_name: apache2
 
 aodh_apache_config:
