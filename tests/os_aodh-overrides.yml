@@ -27,7 +27,7 @@ tempest_run: yes
 tempest_plugins:
   - name: tempest-aodh
     repo: https://git.openstack.org/openstack/telemetry-tempest-plugin
-    branch: master
+    branch: '0.1.0'
 
 tempest_test_whitelist:
   - telemetry_tempest_plugin.aodh.api.test_alarming_api
