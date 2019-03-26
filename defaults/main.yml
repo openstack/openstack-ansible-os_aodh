@@ -30,38 +30,19 @@ aodh_pip_package_state: "latest"
 # Set installation method.
 aodh_install_method: "source"
 
-## Toggle developer mode
-aodh_developer_mode: false
-
 ## The git source/branch
 aodh_git_repo: https://git.openstack.org/openstack/aodh
 aodh_git_install_branch: master
-
-## The packages to build from source (used in developer mode)
-aodh_developer_constraints:
+aodh_upper_constraints_url: "{{ requirements_git_url | default('https://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt?h=' ~ requirements_git_install_branch | default('master')) }}"
+aodh_git_constraints:
   - "git+{{ aodh_git_repo }}@{{ aodh_git_install_branch }}#egg=aodh"
+  - "--constraint {{ aodh_upper_constraints_url }}"
 
-# TODO(odyssey4me):
-# This can be simplified once all the roles are using
-# python_venv_build. We can then switch to using a
-# set of constraints in pip.conf inside the venv,
-# perhaps prepared by giving a giving a list of
-# constraints to the role.
-aodh_pip_install_args: >-
-  {{ aodh_developer_mode | ternary(pip_install_developer_constraints | default('--constraint /opt/developer-pip-constraints.txt'), '') }}
-  {{ (pip_install_upper_constraints is defined) | ternary('--constraint ' + pip_install_upper_constraints | default(''), '') }}
-  {{ pip_install_options | default('') }}
-
+aodh_pip_install_args: "{{ pip_install_options | default('') }}"
 
 # Name of the virtual env to deploy into
 aodh_venv_tag: "{{ venv_tag | default('untagged') }}"
 aodh_bin: "{{ _aodh_bin }}"
-
-# venv_download, even when true, will use the fallback method of building the
-# venv from scratch if the venv download fails.
-aodh_venv_download: "{{ not aodh_developer_mode | bool }}"
-# URL of the pre-built virtualenv
-aodh_venv_download_url: http://127.0.0.1/venvs/untagged/ubuntu/aodh.tgz
 
 ## System info
 aodh_system_user_name: aodh
@@ -160,6 +141,7 @@ aodh_pip_packages:
   - sqlalchemy-utils
   - systemd-python
   - warlock
+aodh_user_pip_packages: []
 
 aodh_optional_oslomsg_amqp1_pip_packages:
   - oslo.messaging[amqp1]

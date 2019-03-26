@@ -48,6 +48,20 @@
   delay: 2
   when: install_test_packages|bool
 
-- name: Install aodh packages from PIP
-  include_tasks: aodh_install_source.yml
+- name: Install the python venv
+  import_role:
+    name: "python_venv_build"
+  vars:
+    venv_build_constraints: "{{ aodh_git_constraints }}"
+    venv_build_distro_package_list: "{{ aodh_devel_distro_packages }}"
+    venv_install_destination_path: "{{ aodh_bin | dirname }}"
+    venv_pip_install_args: "{{ aodh_pip_install_args }}"
+    venv_pip_packages: >-
+      {{ aodh_pip_packages |
+           union(aodh_user_pip_packages) |
+             union(((aodh_oslomsg_amqp1_enabled | bool) | ternary(aodh_optional_oslomsg_amqp1_pip_packages, []))) }}
+    venv_facts_when_changed:
+      - section: "aodh"
+        option: "venv_tag"
+        value: "{{ aodh_venv_tag }}"
   when: aodh_install_method == 'source'
