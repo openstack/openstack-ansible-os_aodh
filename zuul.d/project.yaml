@@ -16,6 +16,8 @@
     templates:
       - check-requirements
       - openstack-ansible-linters
+      - openstack-ansible-deploy-aio_metal-jobs
+      - openstack-ansible-deploy-aio_distro_metal-jobs
       - openstack-ansible-deploy-aio_telemetry_metal-jobs
       - publish-openstack-docs-pti
       - release-notes-jobs-python3
