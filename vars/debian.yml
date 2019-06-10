@@ -21,7 +21,7 @@ aodh_distro_packages:
   - rpcbind
   - apache2
   - apache2-utils
-  - libapache2-mod-wsgi
+  - libapache2-mod-wsgi-py3
 
 aodh_devel_distro_packages:
   - libffi-dev
@@ -32,11 +32,7 @@ aodh_devel_distro_packages:
   - pkg-config
 
 aodh_service_distro_packages:
-  - aodh-api
-  - aodh-evaluator
-  - aodh-expirer
-  - aodh-listener
-  - aodh-notifier
+  - python3-aodh
   - python-systemd
   - python3-systemd
 
