@@ -67,7 +67,8 @@
         name: "{{ _oslomsg_notify_vhost }}"
         state: "present"
       when:
-        - _oslomsg_notify_vhost != _oslomsg_rpc_vhost
+        - (_oslomsg_rpc_vhost is undefined) or
+          (_oslomsg_notify_vhost != _oslomsg_rpc_vhost)
 
     - name: Apply Notify RabbitMQ vhost policies
       rabbitmq_policy:
@@ -78,21 +79,23 @@
         vhost: "{{ _oslomsg_notify_vhost }}"
       loop: "{{ _oslomsg_notify_policies | default([]) + oslomsg_notify_policies }}"
       when:
-        - _oslomsg_notify_vhost != _oslomsg_rpc_vhost
+        - (_oslomsg_rpc_vhost is undefined) or
+          (_oslomsg_notify_vhost != _oslomsg_rpc_vhost)
 
     - name: Add Notify RabbitMQ user
       rabbitmq_user:
         user: "{{ _oslomsg_notify_userid }}"
         password: "{{ _oslomsg_notify_password }}"
+        update_password: always
         vhost: "{{ _oslomsg_notify_vhost }}"
         configure_priv: ".*"
         read_priv: ".*"
         write_priv: ".*"
         state: "present"
-        force: true
       no_log: true
       when:
-        - _oslomsg_notify_userid != _oslomsg_rpc_userid
+        - (_oslomsg_rpc_userid is undefined) or
+          (_oslomsg_notify_userid != _oslomsg_rpc_userid)
 
 - name: Setup RPC MQ Service (Qdrouterd)
   delegate_to: "{{ _oslomsg_rpc_setup_host }}"
