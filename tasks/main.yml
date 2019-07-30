@@ -119,7 +119,32 @@
   tags:
     - aodh-config
 
-- import_tasks: aodh_service_setup.yml
+- import_tasks: service_setup.yml
+  vars:
+    _service_adminuri_insecure: "{{ keystone_service_adminuri_insecure }}"
+    _service_in_ldap: "{{ aodh_service_in_ldap }}"
+    _service_setup_host: "{{ aodh_service_setup_host }}"
+    _service_setup_host_python_interpreter: "{{ aodh_service_setup_host_python_interpreter }}"
+    _service_project_name: "{{ aodh_service_project_name }}"
+    _service_region: "{{ aodh_service_region }}"
+    _service_users:
+      - name: "{{ aodh_service_user_name }}"
+        password: "{{ aodh_service_password }}"
+        role: "{{ aodh_role_name }}"
+    _service_endpoints:
+      - service: "{{ aodh_service_name }}"
+        interface: "public"
+        url: "{{ aodh_service_publicurl }}"
+      - service: "{{ aodh_service_name }}"
+        interface: "internal"
+        url: "{{ aodh_service_internalurl }}"
+      - service: "{{ aodh_service_name }}"
+        interface: "admin"
+        url: "{{ aodh_service_adminurl }}"
+    _service_catalog:
+      - name: "{{ aodh_service_name }}"
+        type: "{{ aodh_service_type }}"
+        description: "{{ aodh_service_description }}"
   when:
     - inventory_hostname == groups['aodh_all'][0]
   tags:
