@@ -87,10 +87,7 @@ aodh_oslomsg_notify_vhost: "{{ aodh_oslomsg_rpc_vhost }}"
 # TODO(ansmith): Change structure when more backends will be supported
 aodh_oslomsg_amqp1_enabled: "{{ aodh_oslomsg_rpc_transport == 'amqp' }}"
 
-## Apache setup
-aodh_apache_log_level: info
-aodh_apache_servertokens: "Prod"
-aodh_apache_serversignature: "Off"
+## uWSGI setup
 aodh_wsgi_threads: 10
 aodh_wsgi_processes_max: 16
 aodh_wsgi_processes: "{{ [[ansible_processor_vcpus|default(1), 1] | max * 2, aodh_wsgi_processes_max] | min }}"
@@ -102,6 +99,7 @@ aodh_role_name: admin
 aodh_service_region: RegionOne
 aodh_service_endpoint_type: internalURL
 aodh_service_name: aodh
+aodh_service_bind_address: 0.0.0.0
 aodh_service_port: 8042
 aodh_service_proto: http
 aodh_service_type: alarming
@@ -135,7 +133,6 @@ aodh_pip_packages:
   - gnocchiclient
   - osprofiler
   - PyMySQL>=0.6.2
-  - python-ceilometerclient
   - python-memcached
   - sqlalchemy>=0.9.7
   - sqlalchemy-utils
@@ -148,10 +145,20 @@ aodh_optional_oslomsg_amqp1_pip_packages:
 
 aodh_alarm_notifier_init_overrides: {}
 aodh_alarm_evaluator_init_overrides: {}
+aodh_api_init_overrides: {}
 aodh_listener_init_overrides: {}
 
 ## Service Name-Group Mapping
 aodh_services:
+  aodh-api:
+    group: aodh_api
+    service-name: aodh-api
+    init_config_overrides: "{{ aodh_api_init_overrides }}"
+    wsgi_app: True
+    wsgi_name: aodh-api
+    uwsgi_overrides: "{{ aodh_uwsgi_conf_overrides }}"
+    uwsgi_port: "{{ aodh_service_port }}"
+    uwsgi_bind_address: "{{ aodh_service_bind_address }}"
   aodh-notifier:
     group: aodh_alarm_notifier
     service_name: aodh-notifier
@@ -187,3 +194,4 @@ aodh_role_project_group: aodh_all
 aodh_policy_overrides: {}
 aodh_aodh_conf_overrides: {}
 aodh_api_paste_ini_overrides: {}
+aodh_uwsgi_conf_overrides: {}

@@ -115,9 +115,15 @@
   tags:
     - aodh-config
 
-- import_tasks: aodh_apache.yml
+- name: Import uwsgi role
+  import_role:
+    name: uwsgi
+  vars:
+    uwsgi_services: "{{ uwsgi_aodh_services }}"
+    uwsgi_install_method: "{{ aodh_install_method }}"
   tags:
     - aodh-config
+    - uwsgi
 
 - import_tasks: service_setup.yml
   vars:

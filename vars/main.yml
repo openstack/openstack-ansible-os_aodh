@@ -16,7 +16,8 @@
 filtered_aodh_services: |-
   {% set services = [] %}
   {% for key, value in aodh_services.items() %}
-  {%   if (value['group'] in group_names) %}
+  {%   if (value['group'] in group_names) and
+          not ('wsgi_app' in value and value['wsgi_app']) %}
   {%     set _ = value.update(
            {
              'service_key': key,
@@ -28,6 +29,26 @@ filtered_aodh_services: |-
   %}
   {%     set _ = value.pop('init_config_overrides') -%}
   {%     set _ = services.append(value) %}
+  {%   endif %}
+  {% endfor %}
+  {{ services }}
+
+uwsgi_aodh_services: |-
+  {% set services = {} %}
+  {% for key, value in aodh_services.items() %}
+  {%   if (value['group'] in group_names) and
+          ('wsgi_app' in value and value['wsgi_app']) %}
+  {%     set _ = value.update(
+            {
+             'wsgi_path':  aodh_bin ~ '/' ~ value.wsgi_name,
+             'wsgi_venv': ((aodh_install_method == 'source') | ternary(aodh_bin | dirname, None)),
+             'uwsgi_uid': aodh_system_user_name,
+             'uwsgi_guid': aodh_system_group_name,
+             'uwsgi_processes': aodh_wsgi_processes,
+             'uwsgi_threads': aodh_wsgi_threads
+           }
+         ) %}
+  {%     set _ = services.update({key: value}) %}
   {%   endif %}
   {% endfor %}
   {{ services }}

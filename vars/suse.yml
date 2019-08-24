@@ -17,9 +17,6 @@
 # Common packages
 aodh_distro_packages:
   - rpcbind
-  - apache2
-  - apache2-utils
-  - apache2-mod_wsgi
 
 aodh_devel_distro_packages:
   - libffi-devel
@@ -47,26 +44,9 @@ aodh_oslomsg_amqp1_distro_packages:
   - cyrus-sasl-plain
   - cyrus-sasl-digestmd5
 
+# NOTE(noonedeadpunk): These variables are left for migration from apache to uwsgi
+# which was introduced during train release. They can be dropped afterwards.
 aodh_system_service_name: apache2
-
 aodh_apache_config:
-  - { src: "aodh-ports.conf.j2", dest: "/etc/apache2/conf.d/ports.conf" }
-  - { src: "aodh-httpd.conf.j2", dest: "/etc/apache2/conf.d/aodh-httpd.conf" }
-
-aodh_apache_default_sites:
-  - "/etc/apache2/conf.d/gitweb.conf"
-
-aodh_apache_conf: "/etc/apache2/httpd.conf"
-aodh_apache_security_conf: "{{ aodh_apache_conf }}"
-aodh_apache_default_log_folder: "/var/log/apache2"
-
-aodh_apache_modules:
-  - name: "authz_host"
-    state: "present"
-  - name: "access_compat"
-    state: "present"
-  - name: "version"
-    state: "present"
-# This can be enabled when Apache2.5+ is available
-#  - name: "mod_journald"
-#    state: "present
+  -  "/etc/apache2/conf.d/aodh-httpd.conf"
+aodh_apache_ports: "/etc/apache2/conf.d/ports.conf"
