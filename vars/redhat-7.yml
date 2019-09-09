@@ -16,9 +16,6 @@
 # Common packages
 aodh_distro_packages:
   - rpcbind
-  - httpd
-  - httpd-tools
-  - mod_wsgi
 
 aodh_devel_distro_packages:
   - libffi-devel
@@ -44,17 +41,9 @@ aodh_oslomsg_amqp1_distro_packages:
   - cyrus-sasl-plain
   - cyrus-sasl-md5
 
+# NOTE(noonedeadpunk): These variables are left for migration from apache to uwsgi
+# which was introduced during train release. They can be dropped afterwards.
 aodh_system_service_name: httpd
-
 aodh_apache_config:
-  - { src: "aodh-ports.conf.j2", dest: "/etc/httpd/conf.d/ports.conf" }
-  - { src: "aodh-httpd.conf.j2", dest: "/etc/httpd/conf.d/aodh-httpd.conf" }
-
-aodh_apache_default_sites:
-  - "/etc/httpd/conf.d/userdir.conf"
-  - "/etc/httpd/conf.d/welcome.conf"
-  - "/etc/httpd/conf.d/ssl.conf"
-
-aodh_apache_conf: "/etc/httpd/conf/httpd.conf"
-aodh_apache_security_conf: "{{ aodh_apache_conf }}"
-aodh_apache_default_log_folder: "/var/log/httpd"
+  - "/etc/httpd/conf.d/aodh-httpd.conf"
+aodh_apache_ports: "/etc/httpd/conf.d/ports.conf"
