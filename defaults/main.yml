@@ -29,6 +29,7 @@ aodh_pip_package_state: "latest"
 
 # Set installation method.
 aodh_install_method: "source"
+aodh_venv_python_executable: "{{ openstack_venv_python_executable | default('python2') }}"
 
 ## The git source/branch
 aodh_git_repo: https://git.openstack.org/openstack/aodh
