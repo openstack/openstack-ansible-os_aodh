@@ -100,7 +100,7 @@ aodh_role_name: admin
 aodh_service_region: RegionOne
 aodh_service_endpoint_type: internalURL
 aodh_service_name: aodh
-aodh_service_bind_address: 0.0.0.0
+aodh_service_bind_address: "{{ openstack_service_bind_address | default('0.0.0.0') }}"
 aodh_service_port: 8042
 aodh_service_proto: http
 aodh_service_type: alarming
