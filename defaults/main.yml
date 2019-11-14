@@ -32,9 +32,9 @@ aodh_install_method: "source"
 aodh_venv_python_executable: "{{ openstack_venv_python_executable | default('python2') }}"
 
 ## The git source/branch
-aodh_git_repo: https://git.openstack.org/openstack/aodh
+aodh_git_repo: https://opendev.org/openstack/aodh
 aodh_git_install_branch: master
-aodh_upper_constraints_url: "{{ requirements_git_url | default('https://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt?h=' ~ requirements_git_install_branch | default('master')) }}"
+aodh_upper_constraints_url: "{{ requirements_git_url | default('https://releases.openstack.org/constraints/upper/' ~ requirements_git_install_branch | default('master')) }}"
 aodh_git_constraints:
   - "git+{{ aodh_git_repo }}@{{ aodh_git_install_branch }}#egg=aodh"
   - "--constraint {{ aodh_upper_constraints_url }}"
