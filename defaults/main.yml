@@ -134,6 +134,7 @@ aodh_pip_packages:
   - gnocchiclient
   - osprofiler
   - PyMySQL>=0.6.2
+  - pymemcache
   - python-memcached
   - sqlalchemy>=0.9.7
   - sqlalchemy-utils
@@ -143,6 +144,8 @@ aodh_user_pip_packages: []
 
 aodh_optional_oslomsg_amqp1_pip_packages:
   - oslo.messaging[amqp1]
+
+aodh_memcached_servers: "{{ memcached_servers }}"
 
 aodh_alarm_notifier_init_overrides: {}
 aodh_alarm_evaluator_init_overrides: {}
