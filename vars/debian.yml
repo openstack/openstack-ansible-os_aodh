@@ -30,7 +30,6 @@ aodh_devel_distro_packages:
 
 aodh_service_distro_packages:
   - python3-aodh
-  - python-systemd
   - python3-systemd
 
 aodh_test_distro_packages:
