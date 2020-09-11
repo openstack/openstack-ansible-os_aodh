@@ -49,7 +49,7 @@
 
 - import_tasks: db_setup.yml
   when:
-    - inventory_hostname == groups['aodh_all'][0]
+    - _aodh_is_first_play_host
   vars:
     _oslodb_setup_host: "{{ aodh_db_setup_host }}"
     _oslodb_databases:
@@ -63,7 +63,7 @@
 
 - import_tasks: mq_setup.yml
   when:
-    - inventory_hostname == groups['aodh_all'][0]
+    - _aodh_is_first_play_host
   vars:
     _oslomsg_rpc_setup_host: "{{ aodh_oslomsg_rpc_setup_host }}"
     _oslomsg_rpc_userid: "{{ aodh_oslomsg_rpc_userid }}"
@@ -111,7 +111,7 @@
 
 - import_tasks: aodh_db_sync.yml
   when:
-    - inventory_hostname == groups['aodh_all'][0]
+    - _aodh_is_first_play_host
   tags:
     - aodh-config
 
@@ -152,6 +152,6 @@
         type: "{{ aodh_service_type }}"
         description: "{{ aodh_service_description }}"
   when:
-    - inventory_hostname == groups['aodh_all'][0]
+    - _aodh_is_first_play_host
   tags:
     - aodh-config
