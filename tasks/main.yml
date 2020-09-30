@@ -53,7 +53,7 @@
   vars:
     _oslodb_setup_host: "{{ aodh_db_setup_host }}"
     _oslodb_ansible_python_interpreter: "{{ aodh_db_setup_python_interpreter }}"
-    _oslodb_setup_endpoint: "{{ aodh_galera_address }}"
+    _oslodb_setup_endpoint: "{{ aodh_db_address }}"
     _oslodb_setup_port: "{{ aodh_galera_port }}"
     _oslodb_databases:
       - name: "{{ aodh_database_name }}"
