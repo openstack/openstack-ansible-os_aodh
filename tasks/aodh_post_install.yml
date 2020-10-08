@@ -37,6 +37,7 @@
       config_type: "json"
   notify:
     - Restart aodh services
+    - Restart uwsgi services
 
 # NOTE(noonedeadpunk): This task is created due to migration from apache to uwsgi
 # which was introduced during train release. It can be dropped afterwards.
