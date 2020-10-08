@@ -37,21 +37,4 @@
       config_type: "json"
   notify:
     - Restart aodh services
-
-# NOTE(noonedeadpunk): This task is created due to migration from apache to uwsgi
-# which was introduced during train release. It can be dropped afterwards.
-- name: Drop Apache related configs
-  file:
-    path: "{{ item }}"
-    state: absent
-  with_items: "{{ aodh_apache_config }}"
-  notify:
-   - Restart web server
-
-- name: Stop Apache listening on Aodh port
-  lineinfile:
-    path: "{{ aodh_apache_ports }}"
-    state: absent
-    line: "Listen {{ aodh_service_port }}"
-  notify:
-   - Restart web server
+    - Restart uwsgi services
