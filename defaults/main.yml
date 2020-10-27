@@ -92,9 +92,9 @@ aodh_oslomsg_notify_vhost: "{{ aodh_oslomsg_rpc_vhost }}"
 aodh_oslomsg_amqp1_enabled: "{{ aodh_oslomsg_rpc_transport == 'amqp' }}"
 
 ## uWSGI setup
-aodh_wsgi_threads: 10
+aodh_wsgi_threads: 1
 aodh_wsgi_processes_max: 16
-aodh_wsgi_processes: "{{ [[ansible_processor_vcpus|default(1), 1] | max * 2, aodh_wsgi_processes_max] | min }}"
+aodh_wsgi_processes: "{{ [[(ansible_processor_vcpus//ansible_processor_threads_per_core)|default(1), 1] | max * 2, aodh_wsgi_processes_max] | min }}"
 
 #Aodh services info
 aodh_role_name: admin
