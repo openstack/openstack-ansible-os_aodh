@@ -55,7 +55,6 @@ aodh_system_user_home: "/var/lib/{{ aodh_system_user_name }}"
 ## Database info
 aodh_db_setup_host: "{{ openstack_db_setup_host | default('localhost') }}"
 aodh_db_setup_python_interpreter: "{{ openstack_db_setup_python_interpreter | default((aodh_db_setup_host == 'localhost') | ternary(ansible_playbook_python, ansible_python['executable'])) }}"
-aodh_db_setup_host: "{{ ('galera_all' in groups) | ternary(groups['galera_all'][0], 'localhost') }}"
 aodh_db_address: "{{ galera_address | default('127.0.0.1') }}"
 aodh_database_name: aodh
 aodh_database_user: aodh
