@@ -35,7 +35,6 @@ aodh_git_repo: https://opendev.org/openstack/aodh
 aodh_git_install_branch: master
 aodh_upper_constraints_url: "{{ requirements_git_url | default('https://releases.openstack.org/constraints/upper/' ~ requirements_git_install_branch | default('master')) }}"
 aodh_git_constraints:
-  - "git+{{ aodh_git_repo }}@{{ aodh_git_install_branch }}#egg=aodh"
   - "--constraint {{ aodh_upper_constraints_url }}"
 
 aodh_pip_install_args: "{{ pip_install_options | default('') }}"
@@ -124,20 +123,16 @@ aodh_service_in_ldap: "{{ service_ldap_backend_enabled | default(False) }}"
 
 # Common pip packages
 aodh_pip_packages:
-  # The following constraints are taken from the setup.cfg
-  # file in the aodh project. This is due to the fact that the repo-build
-  # role does not respect constraints specified in setup.cfg files.
-  # https://github.com/openstack/aodh/blob/master/setup.cfg#L35-L38
-  - alembic>=0.7.2
+  - "git+{{ aodh_git_repo }}@{{ aodh_git_install_branch }}#egg=aodh"
   - aodh
   - ceilometermiddleware
   - cryptography
   - gnocchiclient
   - osprofiler
-  - PyMySQL>=0.6.2
+  - PyMySQL
   - pymemcache
   - python-memcached
-  - sqlalchemy>=0.9.7
+  - sqlalchemy
   - sqlalchemy-utils
   - systemd-python
   - warlock
