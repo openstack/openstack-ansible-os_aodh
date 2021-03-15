@@ -18,7 +18,7 @@
     name: "{{ item.service_name }}"
     enabled: yes
     state: "stopped"
-    daemon_reload: "{{ (ansible_service_mgr == 'systemd') | ternary('yes', omit) }}"
+    daemon_reload: yes
   with_items: "{{ filtered_aodh_services }}"
   register: _stop
   until: _stop is success
@@ -53,7 +53,7 @@
     name: "{{ item.service_name }}"
     enabled: yes
     state: "started"
-    daemon_reload: "{{ (ansible_service_mgr == 'systemd') | ternary('yes', omit) }}"
+    daemon_reload: yes
   with_items: "{{ filtered_aodh_services }}"
   register: _start
   until: _start is success
