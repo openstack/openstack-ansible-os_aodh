@@ -31,10 +31,30 @@
       dest: "/etc/aodh/api_paste.ini"
       config_overrides: "{{ aodh_api_paste_ini_overrides }}"
       config_type: "ini"
-    - src: "policy.json.j2"
-      dest: "/etc/aodh/policy.json-{{ aodh_venv_tag }}"
-      config_overrides: "{{ aodh_policy_overrides }}"
-      config_type: "json"
   notify:
     - Restart aodh services
     - Restart uwsgi services
+  tags:
+    - aodh-config
+
+- name: Implement policy.yaml if there are overrides configured
+  config_template:
+    dest: "/etc/aodh/policy.yaml"
+    content: "{{ aodh_policy_overrides }}"
+    owner: "{{ aodh_system_user_name }}"
+    group: "{{ aodh_system_group_name }}"
+    mode: "0644"
+    config_type: "yaml"
+  when:
+    - aodh_policy_overrides | length > 0
+  tags:
+    - aodh-policy-override
+
+- name: Remove legacy policy.yaml file
+  file:
+    path: "/etc/aodh/policy.yaml"
+    state: absent
+  when:
+    - aodh_policy_overrides | length == 0
+  tags:
+    - aodh-policy-override
