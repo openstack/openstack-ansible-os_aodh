@@ -20,7 +20,7 @@ debug: False
 # for the service setup. The host must already have
 # clouds.yaml properly configured.
 aodh_service_setup_host: "{{ openstack_service_setup_host | default('localhost') }}"
-aodh_service_setup_host_python_interpreter: "{{ openstack_service_setup_host_python_interpreter | default((aodh_service_setup_host == 'localhost') | ternary(ansible_playbook_python, ansible_python['executable'])) }}"
+aodh_service_setup_host_python_interpreter: "{{ openstack_service_setup_host_python_interpreter | default((aodh_service_setup_host == 'localhost') | ternary(ansible_playbook_python, ansible_facts['python']['executable'])) }}"
 
 # Set the package install state for distribution packages
 # Options are 'present' and 'latest'
@@ -52,7 +52,7 @@ aodh_system_user_home: "/var/lib/{{ aodh_system_user_name }}"
 
 ## Database info
 aodh_db_setup_host: "{{ openstack_db_setup_host | default('localhost') }}"
-aodh_db_setup_python_interpreter: "{{ openstack_db_setup_python_interpreter | default((aodh_db_setup_host == 'localhost') | ternary(ansible_playbook_python, ansible_python['executable'])) }}"
+aodh_db_setup_python_interpreter: "{{ openstack_db_setup_python_interpreter | default((aodh_db_setup_host == 'localhost') | ternary(ansible_playbook_python, ansible_facts['python']['executable'])) }}"
 aodh_db_address: "{{ galera_address | default('127.0.0.1') }}"
 aodh_database_name: aodh
 aodh_database_user: aodh
@@ -91,7 +91,7 @@ aodh_oslomsg_amqp1_enabled: "{{ aodh_oslomsg_rpc_transport == 'amqp' }}"
 ## uWSGI setup
 aodh_wsgi_threads: 1
 aodh_wsgi_processes_max: 16
-aodh_wsgi_processes: "{{ [[(ansible_processor_vcpus//ansible_processor_threads_per_core)|default(1), 1] | max * 2, aodh_wsgi_processes_max] | min }}"
+aodh_wsgi_processes: "{{ [[(ansible_facts['processor_vcpus']//ansible_facts['processor_threads_per_core'])|default(1), 1] | max * 2, aodh_wsgi_processes_max] | min }}"
 
 #Aodh services info
 aodh_role_name: admin
