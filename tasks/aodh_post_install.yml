@@ -14,7 +14,7 @@
 # limitations under the License.
 
 - name: Copy aodh config
-  config_template:
+  openstack.config_template.config_template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     owner: "{{ aodh_system_user_name }}"
@@ -38,7 +38,7 @@
     - aodh-config
 
 - name: Implement policy.yaml if there are overrides configured
-  config_template:
+  openstack.config_template.config_template:
     dest: "/etc/aodh/policy.yaml"
     content: "{{ aodh_policy_overrides }}"
     owner: "{{ aodh_system_user_name }}"
