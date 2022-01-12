@@ -52,7 +52,12 @@
   tags:
     - always
 
-- import_tasks: db_setup.yml
+- include_role:
+    name: openstack.osa.db_setup
+    apply:
+      tags:
+        - common-db
+        - aodh-config
   when:
     - _aodh_is_first_play_host
   vars:
@@ -66,10 +71,14 @@
           - username: "{{ aodh_database_user }}"
             password: "{{ aodh_container_db_password }}"
   tags:
-    - common-db
-    - aodh-config
+    - always
 
-- import_tasks: mq_setup.yml
+- include_role:
+    name: openstack.osa.mq_setup
+    apply:
+      tags:
+         - common-mq
+         - aodh-config
   when:
     - _aodh_is_first_play_host
   vars:
@@ -84,8 +93,7 @@
     _oslomsg_notify_vhost: "{{ aodh_oslomsg_notify_vhost }}"
     _oslomsg_notify_transport: "{{ aodh_oslomsg_notify_transport }}"
   tags:
-    - common-mq
-    - aodh-config
+    - always
 
 - import_tasks: aodh_pre_install.yml
   tags:
@@ -133,7 +141,12 @@
     - aodh-config
     - uwsgi
 
-- import_tasks: service_setup.yml
+- include_role:
+    name: openstack.osa.service_setup
+    apply:
+      tags:
+        - common-service
+        - aodh-config
   vars:
     _service_adminuri_insecure: "{{ keystone_service_adminuri_insecure }}"
     _service_in_ldap: "{{ aodh_service_in_ldap }}"
@@ -162,4 +175,4 @@
   when:
     - _aodh_is_first_play_host
   tags:
-    - aodh-config
+    - always
