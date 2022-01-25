@@ -19,6 +19,7 @@ cache_timeout: 600
 # Common apt packages
 aodh_distro_packages:
   - rpcbind
+  - libxml2
 
 aodh_devel_distro_packages:
   - libffi-dev
