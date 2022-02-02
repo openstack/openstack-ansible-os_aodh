@@ -39,13 +39,3 @@ aodh_test_distro_packages:
 aodh_oslomsg_amqp1_distro_packages:
   - libsasl2-modules
   - sasl2-bin
-
-# NOTE(noonedeadpunk): These variables are left for migration from apache to uwsgi
-# which was introduced during train release. They can be dropped afterwards.
-aodh_system_service_name: apache2
-aodh_apache_config:
-  - "/etc/apache2/sites-available/aodh-httpd.conf"
-  - "/etc/apache2/sites-enabled/aodh-httpd.conf"
-  - "/etc/apache2/sites-enabled/aodh-api.conf"
-  - "/etc/apache2/sites-available/aodh-api.conf"
-aodh_apache_ports: "/etc/apache2/ports.conf"
