@@ -111,6 +111,9 @@ aodh_service_name: aodh
 aodh_service_bind_address: "{{ openstack_service_bind_address | default('0.0.0.0') }}"
 aodh_service_port: 8042
 aodh_service_proto: http
+aodh_service_publicuri_proto: "{{ openstack_service_publicuri_proto | default(aodh_service_proto) }}"
+aodh_service_adminuri_proto: "{{ openstack_service_adminuri_proto | default(aodh_service_proto) }}"
+aodh_service_internaluri_proto: "{{ openstack_service_internaluri_proto | default(aodh_service_proto) }}"
 aodh_service_type: alarming
 aodh_service_description: "Telemetry"
 aodh_service_project_domain_id: default
@@ -120,11 +123,11 @@ aodh_keystone_auth_plugin: "{{ aodh_keystone_auth_type }}"
 aodh_keystone_auth_type: password
 aodh_service_tenant_name: service
 aodh_service_project_name: service
-aodh_service_publicuri: "{{ aodh_service_proto }}://{{ external_lb_vip_address }}:{{ aodh_service_port }}"
+aodh_service_publicuri: "{{ aodh_service_publicuri_proto }}://{{ external_lb_vip_address }}:{{ aodh_service_port }}"
 aodh_service_publicurl: "{{ aodh_service_publicuri }}"
-aodh_service_internaluri: "{{ aodh_service_proto }}://{{ internal_lb_vip_address }}:{{ aodh_service_port }}"
+aodh_service_internaluri: "{{ aodh_service_internaluri_proto }}://{{ internal_lb_vip_address }}:{{ aodh_service_port }}"
 aodh_service_internalurl: "{{ aodh_service_internaluri }}"
-aodh_service_adminuri: "{{ aodh_service_proto }}://{{ internal_lb_vip_address }}:{{ aodh_service_port }}"
+aodh_service_adminuri: "{{ aodh_service_adminuri_proto }}://{{ internal_lb_vip_address }}:{{ aodh_service_port }}"
 aodh_service_adminurl: "{{ aodh_service_adminuri }}"
 
 aodh_service_in_ldap: "{{ service_ldap_backend_enabled | default(False) }}"
