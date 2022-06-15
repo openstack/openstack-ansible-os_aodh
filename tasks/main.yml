@@ -157,7 +157,7 @@
     _service_users:
       - name: "{{ aodh_service_user_name }}"
         password: "{{ aodh_service_password }}"
-        role: "{{ aodh_role_name }}"
+        role: "{{ aodh_service_role_names }}"
     _service_endpoints:
       - service: "{{ aodh_service_name }}"
         interface: "public"

@@ -102,7 +102,12 @@ aodh_wsgi_processes_max: 16
 aodh_wsgi_processes: "{{ [[(ansible_facts['processor_vcpus']//ansible_facts['processor_threads_per_core'])|default(1), 1] | max * 2, aodh_wsgi_processes_max] | min }}"
 
 #Aodh services info
-aodh_role_name: admin
+aodh_service_role_names:
+  - admin
+  - service
+aodh_service_token_roles:
+  - service
+aodh_service_token_roles_required: "{{ openstack_service_token_roles_required | default(True) }}"
 
 ## Service Type and Data
 aodh_service_region: "{{ service_region | default('RegionOne') }}"
