@@ -18,6 +18,7 @@ cache_timeout: 600
 
 # Common apt packages
 aodh_distro_packages:
+  - git
   - rpcbind
   - libxml2
 

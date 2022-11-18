@@ -15,6 +15,7 @@
 
 # Common packages
 aodh_distro_packages:
+  - git-core
   - rpcbind
 
 aodh_devel_distro_packages:
