@@ -28,6 +28,7 @@
     - "Restart aodh services"
     - "venv changed"
     - "systemd service changed"
+    - "cert installed"
 
 - name: Start services
   service:
@@ -44,3 +45,4 @@
     - "Restart aodh services"
     - "venv changed"
     - "systemd service changed"
+    - "cert installed"

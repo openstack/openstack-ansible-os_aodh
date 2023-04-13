@@ -100,6 +100,9 @@ aodh_oslomsg_amqp1_enabled: "{{ aodh_oslomsg_rpc_transport == 'amqp' }}"
 aodh_wsgi_threads: 1
 aodh_wsgi_processes_max: 16
 aodh_wsgi_processes: "{{ [[(ansible_facts['processor_vcpus']//ansible_facts['processor_threads_per_core'])|default(1), 1] | max * 2, aodh_wsgi_processes_max] | min }}"
+aodh_uwsgi_tls:
+  crt: "{{ aodh_ssl_cert }}"
+  key: "{{ aodh_ssl_key }}"
 
 #Aodh services info
 aodh_service_role_names:
@@ -175,6 +178,7 @@ aodh_services:
     uwsgi_overrides: "{{ aodh_uwsgi_conf_overrides }}"
     uwsgi_port: "{{ aodh_service_port }}"
     uwsgi_bind_address: "{{ aodh_service_bind_address }}"
+    uwsgi_tls: "{{ aodh_backend_ssl | ternary(aodh_uwsgi_tls, {}) }}"
   aodh-notifier:
     group: aodh_alarm_notifier
     service_name: aodh-notifier
@@ -205,3 +209,51 @@ aodh_policy_overrides: {}
 aodh_aodh_conf_overrides: {}
 aodh_api_paste_ini_overrides: {}
 aodh_uwsgi_conf_overrides: {}
+
+###
+### Backend TLS
+###
+
+# Define if communication between haproxy and service backends should be
+# encrypted with TLS.
+aodh_backend_ssl: "{{ openstack_service_backend_ssl | default(False) }}"
+
+# Storage location for SSL certificate authority
+aodh_pki_dir: "{{ openstack_pki_dir | default('/etc/openstack_deploy/pki') }}"
+
+# Delegated host for operating the certificate authority
+aodh_pki_setup_host: "{{ openstack_pki_setup_host | default('localhost') }}"
+
+# aodh server certificate
+aodh_pki_keys_path: "{{ aodh_pki_dir ~ '/certs/private/' }}"
+aodh_pki_certs_path: "{{ aodh_pki_dir ~ '/certs/certs/' }}"
+aodh_pki_intermediate_cert_name: "{{ openstack_pki_service_intermediate_cert_name | default('ExampleCorpIntermediate') }}"
+aodh_pki_regen_cert: ''
+aodh_pki_san: "{{ openstack_pki_san | default('DNS:' ~ ansible_facts['hostname'] ~ ',IP:' ~ management_address) }}"
+aodh_pki_certificates:
+  - name: "aodh_{{ ansible_facts['hostname'] }}"
+    provider: ownca
+    cn: "{{ ansible_facts['hostname'] }}"
+    san: "{{ aodh_pki_san }}"
+    signed_by: "{{ aodh_pki_intermediate_cert_name }}"
+
+# aodh destination files for SSL certificates
+aodh_ssl_cert: /etc/aodh/aodh.pem
+aodh_ssl_key: /etc/aodh/aodh.key
+
+# Installation details for SSL certificates
+aodh_pki_install_certificates:
+  - src: "{{ aodh_user_ssl_cert | default(aodh_pki_certs_path ~ 'aodh_' ~ ansible_facts['hostname'] ~ '-chain.crt') }}"
+    dest: "{{ aodh_ssl_cert }}"
+    owner: "{{ aodh_system_user_name }}"
+    group: "{{ aodh_system_user_name }}"
+    mode: "0644"
+  - src: "{{ aodh_user_ssl_key | default(aodh_pki_keys_path ~ 'aodh_' ~ ansible_facts['hostname'] ~ '.key.pem') }}"
+    dest: "{{ aodh_ssl_key }}"
+    owner: "{{ aodh_system_user_name }}"
+    group: "{{ aodh_system_user_name }}"
+    mode: "0600"
+
+# Define user-provided SSL certificates
+#aodh_user_ssl_cert: <path to cert on ansible deployment host>
+#aodh_user_ssl_key: <path to cert on ansible deployment host>

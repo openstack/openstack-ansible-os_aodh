@@ -102,6 +102,26 @@
   tags:
     - aodh-install
 
+- name: Create and install SSL certificates
+  include_role:
+    name: pki
+    tasks_from: main_certs.yml
+    apply:
+      tags:
+        - aodh-config
+        - pki
+  vars:
+    pki_setup_host: "{{ aodh_pki_setup_host }}"
+    pki_dir: "{{ aodh_pki_dir }}"
+    pki_create_certificates: "{{ aodh_user_ssl_cert is not defined and aodh_user_ssl_key is not defined }}"
+    pki_regen_cert: "{{ aodh_pki_regen_cert }}"
+    pki_certificates: "{{ aodh_pki_certificates }}"
+    pki_install_certificates: "{{ aodh_pki_install_certificates }}"
+  when:
+    - aodh_backend_ssl
+  tags:
+    - always
+
 - import_tasks: aodh_post_install.yml
   tags:
     - aodh-config
