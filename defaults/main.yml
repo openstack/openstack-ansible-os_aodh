@@ -20,7 +20,11 @@ debug: False
 # for the service setup. The host must already have
 # clouds.yaml properly configured.
 aodh_service_setup_host: "{{ openstack_service_setup_host | default('localhost') }}"
-aodh_service_setup_host_python_interpreter: "{{ openstack_service_setup_host_python_interpreter | default((aodh_service_setup_host == 'localhost') | ternary(ansible_playbook_python, ansible_facts['python']['executable'])) }}"
+aodh_service_setup_host_python_interpreter: >-
+  {{
+    openstack_service_setup_host_python_interpreter | default(
+      (aodh_service_setup_host == 'localhost') | ternary(ansible_playbook_python, ansible_facts['python']['executable']))
+  }}
 
 # Set the package install state for distribution packages
 # Options are 'present' and 'latest'
@@ -33,7 +37,8 @@ aodh_venv_python_executable: "{{ openstack_venv_python_executable | default('pyt
 ## The git source/branch
 aodh_git_repo: https://opendev.org/openstack/aodh
 aodh_git_install_branch: master
-aodh_upper_constraints_url: "{{ requirements_git_url | default('https://releases.openstack.org/constraints/upper/' ~ requirements_git_install_branch | default('master')) }}"
+aodh_upper_constraints_url: >-
+  {{ requirements_git_url | default('https://releases.openstack.org/constraints/upper/' ~ requirements_git_install_branch | default('master')) }}
 aodh_git_constraints:
   - "--constraint {{ aodh_upper_constraints_url }}"
 
@@ -52,14 +57,21 @@ aodh_system_user_home: "/var/lib/{{ aodh_system_user_name }}"
 
 ## Database info
 aodh_db_setup_host: "{{ openstack_db_setup_host | default('localhost') }}"
-aodh_db_setup_python_interpreter: "{{ openstack_db_setup_python_interpreter | default((aodh_db_setup_host == 'localhost') | ternary(ansible_playbook_python, ansible_facts['python']['executable'])) }}"
+aodh_db_setup_python_interpreter: >-
+  {{
+    openstack_db_setup_python_interpreter | default(
+      (aodh_db_setup_host == 'localhost') | ternary(ansible_playbook_python, ansible_facts['python']['executable']))
+  }}
 aodh_db_address: "{{ galera_address | default('127.0.0.1') }}"
 aodh_database_name: aodh
 aodh_database_user: aodh
 aodh_db_type: "mysql+pymysql"
 aodh_galera_use_ssl: "{{ galera_use_ssl | default(False) }}"
 aodh_galera_ssl_ca_cert: "{{ galera_ssl_ca_cert | default('') }}"
-aodh_connection_string: "{{ aodh_db_type }}://{{ aodh_database_user }}:{{ aodh_container_db_password }}@{{ aodh_db_address }}:{{ aodh_galera_port }}/{{ aodh_database_name }}?charset=utf8{% if aodh_galera_use_ssl | bool %}&ssl_verify_cert=true{% if aodh_galera_ssl_ca_cert | length > 0 %}&ssl_ca={{ aodh_galera_ssl_ca_cert }}{% endif %}{% endif %}"
+aodh_connection_string: >-
+  {{ aodh_db_type }}://{{ aodh_database_user }}:{{ aodh_container_db_password }}@{{ aodh_db_address }}:{{ aodh_galera_port }}/{{ aodh_database_name
+  }}?charset=utf8{% if aodh_galera_use_ssl | bool %}&ssl_verify_cert=true{%
+    if aodh_galera_ssl_ca_cert | length > 0 %}&ssl_ca={{ aodh_galera_ssl_ca_cert }}{% endif %}{% endif %}
 aodh_galera_port: "{{ galera_port | default('3306') }}"
 aodh_db_max_overflow: "{{ openstack_db_max_overflow | default('50') }}"
 aodh_db_max_pool_size: "{{ openstack_db_max_pool_size | default('5') }}"
@@ -99,12 +111,13 @@ aodh_oslomsg_amqp1_enabled: "{{ aodh_oslomsg_rpc_transport == 'amqp' }}"
 ## uWSGI setup
 aodh_wsgi_threads: 1
 aodh_wsgi_processes_max: 16
-aodh_wsgi_processes: "{{ [[(ansible_facts['processor_vcpus']//ansible_facts['processor_threads_per_core'])|default(1), 1] | max * 2, aodh_wsgi_processes_max] | min }}"
+aodh_wsgi_processes: >-
+  {{ [[(ansible_facts['processor_vcpus'] // ansible_facts['processor_threads_per_core']) | default(1), 1] | max * 2, aodh_wsgi_processes_max] | min }}
 aodh_uwsgi_tls:
   crt: "{{ aodh_ssl_cert }}"
   key: "{{ aodh_ssl_key }}"
 
-#Aodh services info
+# Aodh services info
 aodh_service_role_names:
   - admin
   - service
@@ -255,5 +268,5 @@ aodh_pki_install_certificates:
     mode: "0600"
 
 # Define user-provided SSL certificates
-#aodh_user_ssl_cert: <path to cert on ansible deployment host>
-#aodh_user_ssl_key: <path to cert on ansible deployment host>
+# aodh_user_ssl_cert: <path to cert on ansible deployment host>
+# aodh_user_ssl_key: <path to cert on ansible deployment host>
