@@ -19,6 +19,18 @@ _aodh_is_first_play_host: >-
     inventory_hostname == (groups[aodh_services['aodh-api']['group']] | intersect(ansible_play_hosts)) | first) | bool
   }}
 
+_aodh_oslomsg_rpc_vhost_conf: >-
+  {{
+    (aodh_oslomsg_rpc_vhost is string) | ternary(aodh_oslomsg_rpc_vhost, aodh_oslomsg_rpc_vhost | selectattr(
+      'state', 'eq', 'present') | map(attribute='name') | first)
+  }}
+
+_aodh_oslomsg_notify_vhost_conf: >-
+  {{
+    (aodh_oslomsg_notify_vhost is string) | ternary(aodh_oslomsg_notify_vhost, aodh_oslomsg_notify_vhost | selectattr(
+      'state', 'eq', 'present') | map(attribute='name') | first)
+  }}
+
 filtered_aodh_services: |-
   {% set services = [] %}
   {% for key, value in aodh_services.items() %}
