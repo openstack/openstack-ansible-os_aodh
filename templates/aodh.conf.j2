@@ -50,6 +50,7 @@ memcache_security_strategy = ENCRYPT
 memcache_secret_key = {{ memcached_encryption_key }}
 
 [oslo_messaging_notifications]
+driver = {{ (aodh_oslomsg_notify_configure | bool) | ternary('messagingv2', 'noop') }}
 transport_url = {{ aodh_oslomsg_notify_transport }}://{% for host in aodh_oslomsg_notify_servers.split(',') %}{{ aodh_oslomsg_notify_userid }}:{{ aodh_oslomsg_notify_password }}@{{ host }}:{{ aodh_oslomsg_notify_port }}{% if not loop.last %},{% else %}/{{ _aodh_oslomsg_notify_vhost_conf }}{% if aodh_oslomsg_notify_use_ssl | bool %}?ssl=1&ssl_version={{ aodh_oslomsg_notify_ssl_version }}&ssl_ca_file={{ aodh_oslomsg_notify_ssl_ca_file }}{% else %}?ssl=0{% endif %}{% endif %}{% endfor %}
 
 [service_credentials]

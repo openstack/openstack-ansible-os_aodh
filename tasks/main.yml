@@ -95,6 +95,7 @@
     _oslomsg_notify_vhost: "{{ aodh_oslomsg_notify_vhost }}"
     _oslomsg_notify_transport: "{{ aodh_oslomsg_notify_transport }}"
     _oslomsg_notify_policies: "{{ aodh_oslomsg_notify_policies }}"
+    _oslomsg_notify_configure: "{{ aodh_oslomsg_notify_configure }}"
   tags:
     - always
 
