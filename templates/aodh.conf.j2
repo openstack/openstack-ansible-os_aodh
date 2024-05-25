@@ -14,6 +14,9 @@ rabbit_quorum_queue = {{ aodh_oslomsg_rabbit_quorum_queues }}
 rabbit_transient_quorum_queue = {{ aodh_oslomsg_rabbit_transient_quorum_queues }}
 rabbit_qos_prefetch_count = {{ aodh_oslomsg_rabbit_qos_prefetch_count }}
 use_queue_manager = {{ aodh_oslomsg_rabbit_queue_manager }}
+{% if aodh_oslomsg_rabbit_queue_manager %}
+hostname = {{ [ansible_facts['hostname'], aodh_service_name] | join('-') }}
+{% endif %}
 rabbit_stream_fanout = {{ aodh_oslomsg_rabbit_stream_fanout }}
 rabbit_quorum_delivery_limit = {{ aodh_oslomsg_rabbit_quorum_delivery_limit }}
 rabbit_quorum_max_memory_bytes = {{ aodh_oslomsg_rabbit_quorum_max_memory_bytes }}
