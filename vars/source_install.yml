@@ -15,9 +15,6 @@
 
 aodh_package_list: |-
   {% set packages = aodh_distro_packages %}
-  {% if aodh_oslomsg_amqp1_enabled | bool %}
-  {%   set _ = packages.extend(aodh_oslomsg_amqp1_distro_packages) %}
-  {% endif %}
   {{ packages }}
 
 _aodh_bin: "/openstack/venvs/aodh-{{ aodh_venv_tag }}/bin"

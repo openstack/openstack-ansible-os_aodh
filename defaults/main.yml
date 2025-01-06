@@ -122,10 +122,6 @@ aodh_oslomsg_rabbit_queue_manager: "{{ oslomsg_rabbit_queue_manager | default(ao
 aodh_oslomsg_rabbit_quorum_delivery_limit: "{{ oslomsg_rabbit_quorum_delivery_limit | default(0) }}"
 aodh_oslomsg_rabbit_quorum_max_memory_bytes: "{{ oslomsg_rabbit_quorum_max_memory_bytes | default(0) }}"
 
-## (Qdrouterd) info
-# TODO(ansmith): Change structure when more backends will be supported
-aodh_oslomsg_amqp1_enabled: "{{ aodh_oslomsg_rpc_transport == 'amqp' }}"
-
 ## uWSGI setup
 aodh_wsgi_threads: 1
 aodh_wsgi_processes_max: 16
@@ -187,9 +183,6 @@ aodh_pip_packages:
   - systemd-python
   - warlock
 aodh_user_pip_packages: []
-
-aodh_optional_oslomsg_amqp1_pip_packages:
-  - oslo.messaging[amqp1]
 
 aodh_memcached_servers: "{{ memcached_servers }}"
 
