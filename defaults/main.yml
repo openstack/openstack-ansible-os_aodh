@@ -14,7 +14,7 @@
 # limitations under the License.
 
 ## Verbosity Options
-debug: False
+debug: false
 
 # Set the host which will execute the shade modules
 # for the service setup. The host must already have
@@ -197,7 +197,7 @@ aodh_services:
     group: aodh_api
     service-name: aodh-api
     init_config_overrides: "{{ aodh_api_init_overrides }}"
-    wsgi_app: True
+    wsgi_app: true
     wsgi_name: aodh-api
     uwsgi_overrides: "{{ aodh_uwsgi_conf_overrides }}"
     uwsgi_port: "{{ aodh_service_port }}"
@@ -226,7 +226,7 @@ aodh_required_secrets:
   - aodh_oslomsg_notify_password
   - aodh_service_password
 
-install_test_packages: False
+install_test_packages: false
 
 ## Tunable overrides
 aodh_policy_overrides: {}
@@ -252,7 +252,7 @@ aodh_pki_setup_host: "{{ openstack_pki_setup_host | default('localhost') }}"
 aodh_pki_keys_path: "{{ aodh_pki_dir ~ '/certs/private/' }}"
 aodh_pki_certs_path: "{{ aodh_pki_dir ~ '/certs/certs/' }}"
 aodh_pki_intermediate_cert_name: "{{ openstack_pki_service_intermediate_cert_name | default('ExampleCorpIntermediate') }}"
-aodh_pki_regen_cert: ''
+aodh_pki_regen_cert: ""
 aodh_pki_san: "{{ openstack_pki_san | default('DNS:' ~ ansible_facts['hostname'] ~ ',IP:' ~ management_address) }}"
 aodh_pki_certificates:
   - name: "aodh_{{ ansible_facts['hostname'] }}"

@@ -16,9 +16,9 @@
 - name: Stop services
   service:
     name: "{{ item.service_name }}"
-    enabled: yes
+    enabled: true
     state: "stopped"
-    daemon_reload: yes
+    daemon_reload: true
   with_items: "{{ filtered_aodh_services }}"
   register: _stop
   until: _stop is success
@@ -33,9 +33,9 @@
 - name: Start services
   service:
     name: "{{ item.service_name }}"
-    enabled: yes
+    enabled: true
     state: "started"
-    daemon_reload: yes
+    daemon_reload: true
   with_items: "{{ filtered_aodh_services }}"
   register: _start
   until: _start is success
