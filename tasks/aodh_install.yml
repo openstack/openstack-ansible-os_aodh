@@ -14,7 +14,7 @@
 # limitations under the License.
 
 - name: Record the installation method
-  ini_file:
+  community.general.ini_file:
     dest: "/etc/ansible/facts.d/openstack_ansible.fact"
     section: "aodh"
     option: "install_method"
@@ -22,12 +22,12 @@
     mode: "0644"
 
 - name: Refresh local facts to ensure the aodh section is present
-  setup:
+  ansible.builtin.setup:
     filter: ansible_local
     gather_subset: "!all"
 
 - name: Install distro packages
-  package:
+  ansible.builtin.package:
     name: "{{ aodh_package_list }}"
     state: "{{ aodh_package_state }}"
     update_cache: "{{ (ansible_facts['pkg_mgr'] == 'apt') | ternary('yes', omit) }}"
@@ -38,7 +38,7 @@
   delay: 2
 
 - name: Install distro packages for testing
-  package:
+  ansible.builtin.package:
     name: "{{ aodh_test_distro_packages }}"
     state: "{{ aodh_package_state }}"
     update_cache: "{{ (ansible_facts['pkg_mgr'] == 'apt') | ternary('yes', omit) }}"
@@ -50,7 +50,7 @@
   when: install_test_packages|bool
 
 - name: Install the python venv
-  import_role:
+  ansible.builtin.import_role:
     name: "python_venv_build"
   vars:
     venv_python_executable: "{{ aodh_venv_python_executable }}"

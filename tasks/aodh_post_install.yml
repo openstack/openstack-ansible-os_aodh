@@ -51,7 +51,7 @@
     - aodh-policy-override
 
 - name: Remove legacy policy.yaml file
-  file:
+  ansible.builtin.file:
     path: "/etc/aodh/policy.yaml"
     state: absent
   when:

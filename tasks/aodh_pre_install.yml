@@ -14,13 +14,13 @@
 # limitations under the License.
 
 - name: Create the system group
-  group:
+  ansible.builtin.group:
     name: "{{ aodh_system_group_name }}"
     state: "present"
     system: "yes"
 
 - name: Create the aodh system user
-  user:
+  ansible.builtin.user:
     name: "{{ aodh_system_user_name }}"
     group: "{{ aodh_system_group_name }}"
     comment: "{{ aodh_system_comment }}"
@@ -30,7 +30,7 @@
     home: "{{ aodh_system_user_home }}"
 
 - name: Create aodh dir
-  file:
+  ansible.builtin.file:
     path: "{{ item.path }}"
     state: directory
     owner: "{{ item.owner | default(aodh_system_user_name) }}"

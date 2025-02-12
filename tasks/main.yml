@@ -14,7 +14,7 @@
 # limitations under the License.
 
 - name: Fail if our required secrets are not present
-  fail:
+  ansible.builtin.fail:
     msg: "Please set the {{ item }} variable prior to applying this role."
   when: (item is undefined) or (item is none)
   with_items: "{{ aodh_required_secrets }}"
@@ -22,7 +22,7 @@
     - always
 
 - name: Gather variables for each operating system
-  include_vars: "{{ lookup('first_found', params) }}"
+  ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
   vars:
     params:
       files:
@@ -37,7 +37,7 @@
     - always
 
 - name: Fail if service was deployed using a different installation method
-  fail:
+  ansible.builtin.fail:
     msg: "Switching installation methods for OpenStack services is not supported"
   when:
     - ansible_local is defined
@@ -47,12 +47,12 @@
     - ansible_local.openstack_ansible.aodh.install_method != aodh_install_method
 
 - name: Gather variables for installation method
-  include_vars: "{{ aodh_install_method }}_install.yml"
+  ansible.builtin.include_vars: "{{ aodh_install_method }}_install.yml"
   tags:
     - always
 
 - name: Including osa.db_setup role
-  include_role:
+  ansible.builtin.include_role:
     name: openstack.osa.db_setup
     apply:
       tags:
@@ -74,7 +74,7 @@
     - always
 
 - name: Including osa.mq_setup role
-  include_role:
+  ansible.builtin.include_role:
     name: openstack.osa.mq_setup
     apply:
       tags:
@@ -100,17 +100,17 @@
     - always
 
 - name: Importing aodh_pre_install install
-  import_tasks: aodh_pre_install.yml
+  ansible.builtin.import_tasks: aodh_pre_install.yml
   tags:
     - aodh-install
 
 - name: Importing aodh_install install
-  import_tasks: aodh_install.yml
+  ansible.builtin.import_tasks: aodh_install.yml
   tags:
     - aodh-install
 
 - name: Create and install SSL certificates
-  include_role:
+  ansible.builtin.include_role:
     name: pki
     tasks_from: main_certs.yml
     apply:
@@ -130,13 +130,13 @@
     - always
 
 - name: Importing aodh_post_install tasks
-  import_tasks: aodh_post_install.yml
+  ansible.builtin.import_tasks: aodh_post_install.yml
   tags:
     - aodh-config
     - post-install
 
 - name: Run the systemd service role
-  import_role:
+  ansible.builtin.import_role:
     name: systemd_service
   vars:
     systemd_user_name: "{{ aodh_system_user_name }}"
@@ -154,14 +154,14 @@
     - systemd-service
 
 - name: Importing aodh_db_sync tasks
-  import_tasks: aodh_db_sync.yml
+  ansible.builtin.import_tasks: aodh_db_sync.yml
   when:
     - _aodh_is_first_play_host
   tags:
     - aodh-config
 
 - name: Import uwsgi role
-  import_role:
+  ansible.builtin.import_role:
     name: uwsgi
   vars:
     uwsgi_services: "{{ uwsgi_aodh_services }}"
@@ -171,7 +171,7 @@
     - uwsgi
 
 - name: Including osa.service_setup roles
-  include_role:
+  ansible.builtin.include_role:
     name: openstack.osa.service_setup
     apply:
       tags:
