@@ -198,7 +198,7 @@ aodh_services:
     service-name: aodh-api
     init_config_overrides: "{{ aodh_api_init_overrides }}"
     wsgi_app: true
-    wsgi_name: aodh-api
+    wsgi: "aodh.wsgi.api:application"
     uwsgi_overrides: "{{ aodh_uwsgi_conf_overrides }}"
     uwsgi_port: "{{ aodh_service_port }}"
     uwsgi_bind_address: "{{ aodh_service_bind_address }}"
