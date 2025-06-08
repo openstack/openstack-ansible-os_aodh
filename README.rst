@@ -1,14 +1,6 @@
-========================
-Team and repository tags
-========================
-
-.. image:: https://governance.openstack.org/tc/badges/openstack-ansible-os_aodh.svg
-    :target: https://governance.openstack.org/tc/reference/tags/index.html
-
-.. Change things from this point on
-
+==============
 OpenStack Aodh
-##############
+==============
 
 Ansible role that installs and configures OpenStack Aodh as the alarm
 functionality of Telemetry.
