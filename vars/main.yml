@@ -31,6 +31,15 @@ _aodh_oslomsg_notify_vhost_conf: >-
       'state', 'eq', 'present') | map(attribute='name') | first)
   }}
 
+_aodh_coordination_url: |-
+  {{ aodh_coordination_driver }}://{{
+      groups[aodh_coordination_group]
+        | map('extract', hostvars, 'ansible_host')
+        | list | join(':' ~ aodh_coordination_port ~ ',')
+    }}:{{ aodh_coordination_port -}}
+    ?namespace={{ aodh_coordination_namespace }}{% if aodh_coordination_client_ssl | bool -%}
+    &use_ssl=True&verify_certs={{ aodh_coordination_verify_cert | bool }}{% endif %}
+
 filtered_aodh_services: |-
   {% set services = [] %}
   {% for key, value in aodh_services.items() %}
