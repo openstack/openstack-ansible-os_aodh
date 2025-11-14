@@ -37,7 +37,7 @@
   tags:
     - aodh-config
 
-- name: Implement policy.yaml if there are overrides configured
+- name: Place policy.yaml file
   openstack.config_template.config_template:
     dest: "/etc/aodh/policy.yaml"
     content: "{{ aodh_policy_overrides }}"
@@ -45,16 +45,5 @@
     group: "{{ aodh_system_group_name }}"
     mode: "0644"
     config_type: "yaml"
-  when:
-    - aodh_policy_overrides | length > 0
-  tags:
-    - aodh-policy-override
-
-- name: Remove legacy policy.yaml file
-  ansible.builtin.file:
-    path: "/etc/aodh/policy.yaml"
-    state: absent
-  when:
-    - aodh_policy_overrides | length == 0
   tags:
     - aodh-policy-override
