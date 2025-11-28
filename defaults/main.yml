@@ -122,6 +122,16 @@ aodh_oslomsg_rabbit_queue_manager: "{{ oslomsg_rabbit_queue_manager | default(ao
 aodh_oslomsg_rabbit_quorum_delivery_limit: "{{ oslomsg_rabbit_quorum_delivery_limit | default(0) }}"
 aodh_oslomsg_rabbit_quorum_max_memory_bytes: "{{ oslomsg_rabbit_quorum_max_memory_bytes | default(0) }}"
 
+## Coordination
+aodh_coordination_driver: "{{ coordination_driver | default('zookeeper') }}"
+aodh_coordination_group: "{{ coordination_host_group | default('zookeeper_all') }}"
+aodh_coordination_enable: "{{ (aodh_coordination_group in groups and groups[aodh_coordination_group] | length > 0) }}"
+aodh_coordination_namespace: aodh
+aodh_coordination_client_ssl: "{{ coordination_client_ssl | default(False) }}"
+aodh_coordination_verify_cert: "{{ coordination_verify_cert | default(True) }}"
+aodh_coordination_port: "{{ coordination_port | default(aodh_coordination_client_ssl | ternary('2281', '2181')) }}"
+aodh_coordination_url: "{{ _aodh_coordination_url | default() }}"
+
 ## uWSGI setup
 aodh_wsgi_threads: 1
 aodh_wsgi_processes_max: 16
@@ -181,7 +191,9 @@ aodh_pip_packages:
   - sqlalchemy
   - sqlalchemy-utils
   - systemd-python
+  - "tooz[{{ aodh_coordination_driver }}]"
   - warlock
+
 aodh_user_pip_packages: []
 
 aodh_memcached_servers: "{{ memcached_servers }}"
