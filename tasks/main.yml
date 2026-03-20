@@ -118,9 +118,10 @@
         - aodh-config
         - pki
   vars:
+    pki_backend: "{{ aodh_pki_backend }}"
     pki_setup_host: "{{ aodh_pki_setup_host }}"
     pki_dir: "{{ aodh_pki_dir }}"
-    pki_create_certificates: "{{ aodh_user_ssl_cert is not defined and aodh_user_ssl_key is not defined }}"
+    pki_create_certificates: "{{ aodh_user_ssl_cert | length == 0 and aodh_user_ssl_key | length == 0 }}"
     pki_regen_cert: "{{ aodh_pki_regen_cert }}"
     pki_certificates: "{{ aodh_pki_certificates }}"
     pki_install_certificates: "{{ aodh_pki_install_certificates }}"

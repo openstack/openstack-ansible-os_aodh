@@ -265,12 +265,14 @@ aodh_pki_keys_path: "{{ aodh_pki_dir ~ '/certs/private/' }}"
 aodh_pki_certs_path: "{{ aodh_pki_dir ~ '/certs/certs/' }}"
 aodh_pki_intermediate_cert_name: "{{ openstack_pki_service_intermediate_cert_name | default('ExampleCorpIntermediate') }}"
 aodh_pki_regen_cert: ""
-aodh_pki_san: "{{ openstack_pki_san | default('DNS:' ~ ansible_facts['hostname'] ~ ',IP:' ~ management_address) }}"
+aodh_pki_san: "{{ openstack_pki_san | default({'dns': [ansible_facts['hostname']], 'ip': [management_address]}) }}"
+aodh_pki_backend: "{{ openstack_pki_backend | default('standalone') }}"
 aodh_pki_certificates:
   - name: "aodh_{{ ansible_facts['hostname'] }}"
-    provider: ownca
     cn: "{{ ansible_facts['hostname'] }}"
     san: "{{ aodh_pki_san }}"
+    # standalone backend only
+    provider: ownca
     signed_by: "{{ aodh_pki_intermediate_cert_name }}"
 
 # aodh destination files for SSL certificates
@@ -279,17 +281,21 @@ aodh_ssl_key: /etc/aodh/aodh.key
 
 # Installation details for SSL certificates
 aodh_pki_install_certificates:
-  - src: "{{ aodh_user_ssl_cert | default(aodh_pki_certs_path ~ 'aodh_' ~ ansible_facts['hostname'] ~ '-chain.crt') }}"
+  - name: "aodh_{{ ansible_facts['hostname'] }}"
+    type: "certificate_chain"
     dest: "{{ aodh_ssl_cert }}"
     owner: "{{ aodh_system_user_name }}"
     group: "{{ aodh_system_user_name }}"
-    mode: "0644"
-  - src: "{{ aodh_user_ssl_key | default(aodh_pki_keys_path ~ 'aodh_' ~ ansible_facts['hostname'] ~ '.key.pem') }}"
+    # standalone backend only
+    src: "{{ aodh_user_ssl_cert | default(aodh_pki_certs_path ~ 'aodh_' ~ ansible_facts['hostname'] ~ '-chain.crt') }}"
+  - name: "aodh_{{ ansible_facts['hostname'] }}"
+    type: "private_key"
     dest: "{{ aodh_ssl_key }}"
     owner: "{{ aodh_system_user_name }}"
     group: "{{ aodh_system_user_name }}"
-    mode: "0600"
+    # standalone backend only
+    src: "{{ aodh_user_ssl_key | default(aodh_pki_keys_path ~ 'aodh_' ~ ansible_facts['hostname'] ~ '.key.pem') }}"
 
 # Define user-provided SSL certificates
-# aodh_user_ssl_cert: <path to cert on ansible deployment host>
-# aodh_user_ssl_key: <path to cert on ansible deployment host>
+aodh_user_ssl_cert: ""
+aodh_user_ssl_key: ""
