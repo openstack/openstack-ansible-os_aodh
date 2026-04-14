@@ -9,8 +9,6 @@ The Telemetry alarming services perform the following functions:
   - Allows you to set alarms based on threshold evaluation for a collection of
     samples.
 
-
-
 Configuring the hosts
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -53,4 +51,4 @@ These services communicate by using the OpenStack messaging bus. Only
 the API server has access to the data store.
 
 To install aodh on an existing OpenStack-Ansible environment, run the
-``os-aodh-install.yml`` playbook.
+``openstack.osa.aodh`` playbook.
