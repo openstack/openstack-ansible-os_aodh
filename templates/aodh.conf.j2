@@ -23,6 +23,11 @@ rabbit_quorum_max_memory_bytes = {{ aodh_oslomsg_rabbit_quorum_max_memory_bytes 
 
 [database]
 connection = {{ aodh_connection_string }}
+{% if aodh_galera_readonly_connection_enabled | bool %}
+slave_connection = {{ aodh_readonly_connection_string }}
+synchronous_reader = {{ aodh_galera_synchronous_reader }}
+mysql_wsrep_sync_wait = {{ aodh_galera_synchronous_reader | bool | ternary(0, 1) }}
+{% endif %}
 max_overflow = {{ aodh_db_max_overflow }}
 max_pool_size = {{ aodh_db_max_pool_size }}
 pool_timeout = {{ aodh_db_pool_timeout }}
