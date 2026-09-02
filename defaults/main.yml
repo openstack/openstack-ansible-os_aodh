@@ -179,8 +179,7 @@ aodh_service_in_ldap: "{{ service_ldap_backend_enabled | default(False) }}"
 
 # Common pip packages
 aodh_pip_packages:
-  - "git+{{ aodh_git_repo }}@{{ aodh_git_install_branch }}#egg=aodh"
-  - aodh
+  - "aodh@git+{{ aodh_git_repo }}@{{ aodh_git_install_branch }}"
   - ceilometermiddleware
   - cryptography
   - gnocchiclient
