@@ -72,7 +72,15 @@ aodh_connection_string: >-
   {{ aodh_db_type }}://{{ aodh_database_user }}:{{ aodh_container_db_password }}@{{ aodh_db_address }}:{{ aodh_galera_port }}/{{ aodh_database_name
   }}?charset=utf8{% if aodh_galera_use_ssl | bool %}&ssl_verify_cert=true{%
     if aodh_galera_ssl_ca_cert | length > 0 %}&ssl_ca={{ aodh_galera_ssl_ca_cert }}{% endif %}{% endif %}
+aodh_readonly_connection_string: >-
+  {{ aodh_db_type }}://{{ aodh_database_user }}:{{ aodh_container_db_password }}@{{ aodh_galera_readonly_address }}:{{
+    aodh_galera_readonly_port }}/{{ aodh_database_name }}?charset=utf8{% if aodh_galera_use_ssl | bool %}&ssl_verify_cert=true{%
+    if aodh_galera_ssl_ca_cert | length > 0 %}&ssl_ca={{ aodh_galera_ssl_ca_cert }}{% endif %}{% endif %}
 aodh_galera_port: "{{ galera_port | default('3306') }}"
+aodh_galera_readonly_address: "{{ aodh_galera_address }}"
+aodh_galera_readonly_connection_enabled: "{{ openstack_galera_readonly_connection_enabled | default(false) }}"
+aodh_galera_readonly_port: "{{ galera_readonly_port | default('3308') }}"
+aodh_galera_synchronous_reader: "{{ not aodh_galera_readonly_connection_enabled }}"
 aodh_db_max_overflow: "{{ openstack_db_max_overflow | default('50') }}"
 aodh_db_max_pool_size: "{{ openstack_db_max_pool_size | default('5') }}"
 aodh_db_pool_timeout: "{{ openstack_db_pool_timeout | default('30') }}"
